@@ -40,7 +40,7 @@ def api_attractions():
 	print(api_attractions)
 	cur.execute(api_attractions,("%"+message+"%",message,row))
 	result = cur.fetchall()
-	# print(result[0])
+	print(result)
 	img=[]
 	if result:
 		response= {"nextPage":nextPage,"data":[]}
