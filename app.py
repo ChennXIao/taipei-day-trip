@@ -8,8 +8,10 @@ from flask import config
 db_config = {
     "host": "localhost",
     "user": "root",
-    "password": "sharon616",
-    "database": "taipei"
+	"password": "sharon616",
+	"database": "taipei",
+	"port": 3306,
+
 }
 
 # cnt = mysql.connector.connect(
