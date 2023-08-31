@@ -33,13 +33,6 @@ app.config['JSONIFY_MIMETYPE'] = "application/json;charset=utf-8"
 # Pages
 @app.route("/")
 def index():
-	cnt = mysql.connector.connect(**db_config)
-	cur = cnt.cursor(dictionary=True,buffered=True)
-	api = "Select * from Attraction where id =2;"
-	print(api)
-	cur.execute(api)
-	result = cur.fetchall()
-	print(result)
 	return render_template("index.html")
 
 @app.route("/api/attractions")
