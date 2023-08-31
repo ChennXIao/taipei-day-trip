@@ -4,14 +4,22 @@ import requests
 from mysql.connector import pooling
 from flask import config
 
-cnt = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  password="sharon616",
-  database="taipei",
-  charset="utf8"
-)
-cur = cnt.cursor(dictionary=True,buffered=True)
+
+db_config = {
+    "host": "localhost",
+    "user": "root",
+    "password": "sharon616",
+    "database": "taipei"
+}
+
+# cnt = mysql.connector.connect(
+#   host="localhost",
+#   user="root",
+#   password="sharon616",
+#   database="taipei",
+#   charset="utf8"
+# )
+# cur = cnt.cursor(dictionary=True,buffered=True)
 
 
 
