@@ -38,6 +38,15 @@ def api_attractions():
 	
 	cnt = mysql.connector.connect(**db_config)
 	cur = cnt.cursor(dictionary=True,buffered=True)
+	if db_connection.is_connected():
+		mes = "Connected to the database!"
+    	else:
+        	mes = "Failed to connect to the database."
+	print(mes)
+	test = "select id from Attraction;"
+	cur.execute(test)
+	r = cur.fetchone()
+	print(r)
 	api_attractions = "SELECT * FROM Attraction WHERE name LIKE %s or mrt = %s LIMIT 12 OFFSET %s;"
 	print(api_attractions)
 	cur.execute(api_attractions,("%"+message+"%",message,row))
