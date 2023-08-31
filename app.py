@@ -80,6 +80,7 @@ def api_attractions():
 @app.route("/api/attraction/<attractionId>")
 def api_attractionId(attractionId):
 	
+	cnt = mysql.connector.connect(**db_config)
 	cur = cnt.cursor(dictionary=True,buffered=True)
 	api_attractionId = "SELECT * FROM Attraction WHERE id = %s;"
 	print(api_attractions)
@@ -122,6 +123,7 @@ def api_attractionId(attractionId):
 @app.route("/api/mrts")
 def attraction():
 
+	cnt = mysql.connector.connect(**db_config)
 	cur = cnt.cursor(dictionary=True,buffered=True)
 	attraction_mrt  = "select mrt from Attraction group by mrt order by count(mrt) desc limit 40;"
 	cur.execute(attraction_mrt)
