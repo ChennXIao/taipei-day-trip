@@ -54,7 +54,7 @@ def api_attractions():
 	
 	cnt = mysql.connector.connect(**db_config)
 	cur = cnt.cursor(dictionary=True,buffered=True)
-	api_attractions = "SELECT * FROM Attraction WHERE name LIKE %s or mrt = %s LIMIT 12 OFFSET %s;"
+	api_attractions = "SELECT * FROM attraction WHERE name LIKE %s or mrt = %s LIMIT 12 OFFSET %s;"
 	print(api_attractions)
 	cur.execute(api_attractions,("%"+message+"%",message,row))
 	result = cur.fetchall()
@@ -91,7 +91,7 @@ def api_attractionId(attractionId):
 	
 	cnt = mysql.connector.connect(**db_config)
 	cur = cnt.cursor(dictionary=True,buffered=True)
-	api_attractionId = "SELECT * FROM Attraction WHERE id = %s;"
+	api_attractionId = "SELECT * FROM attraction WHERE id = %s;"
 	print(api_attractions)
 	cur.execute(api_attractionId,(attractionId,))
 	result = cur.fetchall()
@@ -134,7 +134,7 @@ def attraction():
 
 	cnt = mysql.connector.connect(**db_config)
 	cur = cnt.cursor(dictionary=True,buffered=True)
-	attraction_mrt  = "select mrt from Attraction group by mrt order by count(mrt) desc limit 40;"
+	attraction_mrt  = "select mrt from attraction group by mrt order by count(mrt) desc limit 40;"
 	cur.execute(attraction_mrt)
 	mrt_result = cur.fetchall()
 	print(mrt_result)
