@@ -38,7 +38,7 @@ def api_attractions():
 	
 	cnt = mysql.connector.connect(**db_config)
 	cur = cnt.cursor(dictionary=True,buffered=True)
-	if db_connection.is_connected():
+	if cnt.is_connected():
 		mes = "Connected to the database!"
     	else:
         	mes = "Failed to connect to the database."
