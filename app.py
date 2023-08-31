@@ -4,14 +4,15 @@ import requests
 from mysql.connector import pooling
 from flask import config
 
-cnt = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  password="sharon616",
-  database="taipei",
-  charset="utf8"
-)
-cur = cnt.cursor(dictionary=True,buffered=True)
+db_config = {
+    "host": "localhost",
+    "user": "root",
+    "password": "sharon616",
+    "database": "taipei"
+}
+
+
+cnt = mysql.connector.connect(**db_config)
 
 
 
@@ -35,7 +36,19 @@ def api_attractions():
 	row = (nextPage-1)*12
 	print(row)
 	
+	cnt = mysql.connector.connect(**db_config)
 	cur = cnt.cursor(dictionary=True,buffered=True)
+
+	if cnt.is_connected():
+		mes = "Connected to the database!"
+	else:
+		mes = "Failed to connect to the database."
+	print(mes)
+	test = "select id from Attraction;"
+	cur.execute(test)
+	r = cur.fetchone()
+	print(r)
+	
 	api_attractions = "SELECT * FROM Attraction WHERE name LIKE %s or mrt = %s LIMIT 12 OFFSET %s;"
 	print(api_attractions)
 	cur.execute(api_attractions,("%"+message+"%",message,row))
@@ -80,6 +93,8 @@ def api_attractionId(attractionId):
 			response= {"data":[]}
 			for i in range(len(result)):
 				response["data"].append(result[i])
+				urls = result[i]["images"].split(',')
+				result[i]["images"] = urls				
 			response = Response(
 			response=json.dumps(response, ensure_ascii=False, indent=2),
 			mimetype="application/json"
