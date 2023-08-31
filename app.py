@@ -4,15 +4,16 @@ import requests
 from mysql.connector import pooling
 from flask import config
 
-cnt = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  password="sharon616",
-  database="taipei",
-  charset="utf8"
-)
-cur = cnt.cursor(dictionary=True,buffered=True)
+db_config = {
+    "host": "localhost",
+    "user": "root",
+    "password": "sharon616",
+    "database": "taipei"
+}
 
+
+cnt = mysql.connector.connect(**db_config)
+cur = cnt.cursor(dictionary=True,buffered=True)
 
 
 app=Flask(__name__)
@@ -35,6 +36,7 @@ def api_attractions():
 	row = (nextPage-1)*12
 	print(row)
 	
+	cnt = mysql.connector.connect(**db_config)
 	cur = cnt.cursor(dictionary=True,buffered=True)
 	api_attractions = "SELECT * FROM Attraction WHERE name LIKE %s or mrt = %s LIMIT 12 OFFSET %s;"
 	print(api_attractions)
@@ -63,6 +65,7 @@ def api_attractions():
 		)
 
 	cur.close()
+	
  
 	return response
 
