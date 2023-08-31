@@ -35,7 +35,7 @@ app.config['JSONIFY_MIMETYPE'] = "application/json;charset=utf-8"
 def index():
 	cnt = mysql.connector.connect(**db_config)
 	cur = cnt.cursor(dictionary=True,buffered=True)
-	api = "Select * from attraction where id =2;"
+	api = "Select * from Attraction where id =2;"
 	print(api)
 	cur.execute(api)
 	result = cur.fetchall()
