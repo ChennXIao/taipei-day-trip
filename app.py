@@ -39,7 +39,7 @@ def index():
 def api_attractions():
 
 
-	message = request.args.get("key", "")
+	message = request.args.get("keyword", "")
 	nextPage = int(request.args.get("page", ""))+1
 	print(type(nextPage))
 	row = (nextPage-1)*12
