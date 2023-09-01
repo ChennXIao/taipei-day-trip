@@ -90,11 +90,9 @@ def api_attractionId(attractionId):
 	result = cur.fetchall()
 	try:
 		if result:
-			response= {"data":[]}
-			for i in range(len(result)):
-				response["data"].append(result[i])
-				urls = result[i]["images"].split(',')
-				result[i]["images"] = urls				
+			response= {"data":result[0]}
+			urls = result[0]["images"].split(',')
+			result[0]["images"] = urls					
 			response = Response(
 			response=json.dumps(response, ensure_ascii=False, indent=2),
 			mimetype="application/json"
