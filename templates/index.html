@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link href="templates.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='templates.css') }}">
+
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="head">
+        <navbar class="navbar-outer">
+            <div class="navbar-title">
+                台北一日遊
+            </div>
+            <div class="navbar-btn">
+                <div class="navbar-btn_order">預定行程</div>
+                <div class="navbar-btn_signin">登入/註冊</div>
+            </div>
+        </navbar>
+    </div>
+    <div class="main-pic">
+        <div class="main-title">
+            <div class="main-title_top">
+                輕鬆享受台北一日悠閒
+            </div>
+            <div class="main-title_middle">
+                探索每個角落，體驗城市的深度旅遊行程
+            </div>
+            <div class="main-title_search">
+                <form class="form">
+                    <!-- <div class="main-title_search__box"> -->
+                        <input type="text" class="input" placeholder="請輸入要去的地方">
+                    <!-- </div> -->
+                    <!-- <div class="main-title_search__send"> -->
+                    
+                        <button type="submit" class="svg-container">
+                            <img src="{{ url_for('static', filename='search.png') }}" class="search_img">
+                        </button>
+                    <!-- </div> -->
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="main">
+        <div class="listbar">
+            <div class="left-container">
+                <div class="arrow_left">
+                    <img src="{{ url_for('static', filename='arrow left.png') }}">
+                </div>
+            </div>
+            <div class="container">
+                <div class="listItemcontainer">
+                    
+                </div>
+            </div>
+            <div class="right-container">
+                <img src="{{ url_for('static', filename='arrow right.png') }}" class="arrow_right">
+            </div>
+        </div>
+        
+        <div class="attraction-container">
+
+    </div>
+    <div class="nodata"><span class="nodata_text"></span></div>
+    <div  class="footer">
+        <div class="footer-title">
+            COPYRIGHT © 2021 台北一日遊
+        </div>
+    
+    </div>
+    <script src="{{ url_for('static', filename='template.js') }}"></script>
+
+</body>
