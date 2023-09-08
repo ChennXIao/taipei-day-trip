@@ -4,13 +4,14 @@ import requests
 from mysql.connector import pooling
 from flask import config
 
-cnt = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  password="sharon616",
-  database="taipei",
-  charset="utf8"
-)
+db_config = {
+    "host": "localhost",
+    "user": "root",
+    "password": "sharon616",
+    "database": "taipei"
+}
+
+cnt = mysql.connector.connect(**db_config)
 cur = cnt.cursor(dictionary=True,buffered=True)
 
 
@@ -23,6 +24,7 @@ app.config['JSONIFY_MIMETYPE'] = "application/json;charset=utf-8"
 # Pages
 @app.route("/")
 def index():
+
 	return render_template("index.html")
 
 @app.route("/api/attractions")
@@ -31,19 +33,32 @@ def api_attractions():
 
 	message = request.args.get("key", "")
 	nextPage = int(request.args.get("page", ""))+1
-	print(type(nextPage))
+	# print(type(nextPage))
 	row = (nextPage-1)*12
-	print(row)
+	# print(row)
 	
 	cnt = mysql.connector.connect(**db_config)
 	cur = cnt.cursor(dictionary=True,buffered=True)
+	cur2 = cnt.cursor(dictionary=True,buffered=True)
+
 	api_attractions = "SELECT * FROM Attraction WHERE name LIKE %s or mrt = %s LIMIT 12 OFFSET %s;"
-	print(api_attractions)
+	# print(api_attractions)
 	cur.execute(api_attractions,("%"+message+"%",message,row))
+
+	nextPage_check = "SELECT * FROM Attraction WHERE name LIKE %s or mrt = %s LIMIT 12 OFFSET %s;"
+	cur2.execute(api_attractions,("%"+message+"%",message,nextPage*12))
+	result2 = cur2.fetchall()
+	
+	if result2:
+		nextPage = nextPage
+	else:
+		nextPage = None
+
 	result = cur.fetchall()
-	print(result)
+	
 	img=[]
 	if result:
+		
 		response= {"nextPage":nextPage,"data":[]}
 		for i in range(len(result)):
 			response["data"].append(result[i])
@@ -77,13 +92,13 @@ def api_attractionId(attractionId):
 	print(api_attractions)
 	cur.execute(api_attractionId,(attractionId,))
 	result = cur.fetchall()
+	print(result)
 	try:
 		if result:
-			response= {"data":[]}
-			for i in range(len(result)):
-				response["data"].append(result[i])
-				urls = result[i]["images"].split(',')
-				result[i]["images"] = urls				
+			response= {"data":result[0]}
+			
+			urls = result[0]["images"].split(',')
+			result[0]["images"] = urls				
 			response = Response(
 			response=json.dumps(response, ensure_ascii=False, indent=2),
 			mimetype="application/json"
@@ -118,7 +133,7 @@ def attraction():
 	attraction_mrt  = "select mrt from Attraction group by mrt order by count(mrt) desc limit 40;"
 	cur.execute(attraction_mrt)
 	mrt_result = cur.fetchall()
-	print(mrt_result)
+	# print(mrt_result)
 	
 	if mrt_result:
 		response= {"data":[]}
@@ -158,4 +173,5 @@ def attraction():
 
 if __name__ == "__main__":
  
- app.run(host="0.0.0.0", port=3000,debug=True)
+#  app.run(host="0.0.0.0", port=3000,debug=True)
+ app.run(debug=True)

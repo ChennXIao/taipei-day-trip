@@ -14,7 +14,7 @@ cur = cnt.cursor(dictionary=True,buffered=True)
 
 # cur.execute("SELECT *  FROM Attractions")
 # json to csv
-f = open('data/taipei-attractions.json',"r",encoding="utf-8")
+f = open('C:/Users/sharon/Desktop/coding/wehelp/taipei-day-trip/taipei-day-trip/data/taipei-attractions.json',"r",encoding="utf-8")
 
 data = json.load(f)
 data = data["result"]["results"]
