@@ -41,11 +41,11 @@ def api_attractions():
 	cur = cnt.cursor(dictionary=True,buffered=True)
 	cur2 = cnt.cursor(dictionary=True,buffered=True)
 
-	api_attractions = "SELECT * FROM Attraction WHERE name LIKE %s or mrt = %s LIMIT 12 OFFSET %s;"
+	api_attractions = "SELECT * FROM attraction WHERE name LIKE %s or mrt = %s LIMIT 12 OFFSET %s;"
 	# print(api_attractions)
 	cur.execute(api_attractions,("%"+message+"%",message,row))
 
-	nextPage_check = "SELECT * FROM Attraction WHERE name LIKE %s or mrt = %s LIMIT 12 OFFSET %s;"
+	nextPage_check = "SELECT * FROM attraction WHERE name LIKE %s or mrt = %s LIMIT 12 OFFSET %s;"
 	cur2.execute(api_attractions,("%"+message+"%",message,nextPage*12))
 	result2 = cur2.fetchall()
 	
