@@ -8,6 +8,7 @@ fetch_data();
 get_input();
 fetch_mrt();
 setTimeout(mrt, 100); 
+mrt();
 mrt_scroll();
 setTimeout(scroll, 300); 
 
