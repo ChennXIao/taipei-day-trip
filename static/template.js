@@ -199,8 +199,4 @@ function scroll(){
 
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    mrt();
-});
-
 
