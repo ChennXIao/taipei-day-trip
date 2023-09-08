@@ -125,6 +125,7 @@ function fetch_mrt(){
 function mrt(){
   
   let lll = document.getElementsByClassName("list")
+  console.log("有了啦")
   for (let i = 0; i < lll.length; i++) {
     lll[i].style.cursor = "pointer";
     lll[i].addEventListener("click", function (e) {
