@@ -34,7 +34,7 @@ function get_input(){
     e.preventDefault();
     input = blank[0].value
     container[0].innerHTML = "";
-    api = "/api/attractions"+"?page="+0+ "&"+"key="+input
+    api = "/api/attractions"+"?page="+0+ "&"+"keyword="+input
     fetch_data();
     }
   )
@@ -134,7 +134,7 @@ function mrt(){
       click = e.target.getAttribute("v")
       blank[0].value = click;
       input = click;
-      api = "/api/attractions"+"?page="+0+ "&"+"key="+input
+      api = "/api/attractions"+"?page="+0+ "&"+"keyword="+input
       fetch_data();
     });
   }
@@ -180,9 +180,9 @@ function scroll(){
          
       if(nextPage){
         if(input){
-          api = "/api/attractions"+"?page="+nextPage+ "&"+"key="+input
+          api = "/api/attractions"+"?page="+nextPage+ "&"+"keyword="+input
         }else{
-          api = "/api/attractions"+"?page="+nextPage+ "&"+"key="
+          api = "/api/attractions"+"?page="+nextPage+ "&"+"keyword="
         }
         clearTimeout(time)
         time = setTimeout(function(){fetch_data();isScrolling = false;},100)
