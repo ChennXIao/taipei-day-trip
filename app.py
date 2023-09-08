@@ -4,7 +4,6 @@ import requests
 from mysql.connector import pooling
 from flask import config
 
-<<<<<<< HEAD
 db_config = {
     "host": "localhost",
     "user": "root",
@@ -14,26 +13,6 @@ db_config = {
 
 cnt = mysql.connector.connect(**db_config)
 cur = cnt.cursor(dictionary=True,buffered=True)
-=======
-
-db_config = {
-    "host": "localhost",
-    "user": "root",
-	"password": "sharon616",
-	"database": "taipei",
-	"port": 3306,
-
-}
-
-# cnt = mysql.connector.connect(
-#   host="localhost",
-#   user="root",
-#   password="sharon616",
-#   database="taipei",
-#   charset="utf8"
-# )
-# cur = cnt.cursor(dictionary=True,buffered=True)
->>>>>>> 086f77e5d27685a05c322acd40fa35aee01b78d2
 
 
 
@@ -60,15 +39,10 @@ def api_attractions():
 	
 	cnt = mysql.connector.connect(**db_config)
 	cur = cnt.cursor(dictionary=True,buffered=True)
-<<<<<<< HEAD
 	cur2 = cnt.cursor(dictionary=True,buffered=True)
 
 	api_attractions = "SELECT * FROM Attraction WHERE name LIKE %s or mrt = %s LIMIT 12 OFFSET %s;"
 	# print(api_attractions)
-=======
-	api_attractions = "SELECT * FROM attraction WHERE name LIKE %s or mrt = %s LIMIT 12 OFFSET %s;"
-	print(api_attractions)
->>>>>>> 086f77e5d27685a05c322acd40fa35aee01b78d2
 	cur.execute(api_attractions,("%"+message+"%",message,row))
 
 	nextPage_check = "SELECT * FROM Attraction WHERE name LIKE %s or mrt = %s LIMIT 12 OFFSET %s;"
@@ -123,14 +97,9 @@ def api_attractionId(attractionId):
 	try:
 		if result:
 			response= {"data":result[0]}
-<<<<<<< HEAD
 			
 			urls = result[0]["images"].split(',')
 			result[0]["images"] = urls				
-=======
-			urls = result[0]["images"].split(',')
-			result[0]["images"] = urls					
->>>>>>> 086f77e5d27685a05c322acd40fa35aee01b78d2
 			response = Response(
 			response=json.dumps(response, ensure_ascii=False, indent=2),
 			mimetype="application/json"
