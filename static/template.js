@@ -7,7 +7,7 @@ let isScrolling = false;
 fetch_data();
 get_input();
 fetch_mrt();
-setTimeout(mrt, 100); 
+setTimeout(mrt, 1000); 
 mrt_scroll();
 setTimeout(scroll, 300); 
 
