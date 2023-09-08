@@ -7,8 +7,7 @@ let isScrolling = false;
 fetch_data();
 get_input();
 fetch_mrt();
-// setTimeout(mrt, 100); 
-mrt();
+setTimeout(mrt, 100); 
 mrt_scroll();
 setTimeout(scroll, 300); 
 
@@ -123,23 +122,23 @@ function fetch_mrt(){
 }
 
 
-async function mrt() {
-    let lll = document.getElementsByClassName("list");
-    for (let i = 0; i < lll.length; i++) {
-        lll[i].style.cursor = "pointer";
-        lll[i].addEventListener("click", async function (e) {
-            let container = getAttractionContainer();
-            let blank = getBlankElements();
-            container[0].innerHTML = "";
-            click = e.target.getAttribute("v");
-            blank[0].value = click;
-            input = click;
-            api = "/api/attractions" + "?page=" + 0 + "&" + "keyword=" + input;
-            await fetch_data();
-        });
-    }
+function mrt(){
+  
+  let lll = document.getElementsByClassName("list")
+  for (let i = 0; i < lll.length; i++) {
+    lll[i].style.cursor = "pointer";
+    lll[i].addEventListener("click", function (e) {
+      let container = getAttractionContainer();
+      let blank = getBlankElements();
+      container[0].innerHTML = "";
+      click = e.target.getAttribute("v")
+      blank[0].value = click;
+      input = click;
+      api = "/api/attractions"+"?page="+0+ "&"+"keyword="+input
+      fetch_data();
+    });
+  }
 }
-
 
 
 function mrt_scroll(){
@@ -200,10 +199,7 @@ function scroll(){
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Your code here
     mrt();
 });
-
-
 
 
