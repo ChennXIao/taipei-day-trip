@@ -199,6 +199,11 @@ function scroll(){
 
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+    // Your code here
+    mrt();
+});
+
 
 
 
