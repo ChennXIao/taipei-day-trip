@@ -123,23 +123,23 @@ function fetch_mrt(){
 }
 
 
-function mrt(){
-  
-  let lll = document.getElementsByClassName("list")
-  for (let i = 0; i < lll.length; i++) {
-    lll[i].style.cursor = "pointer";
-    lll[i].addEventListener("click", function (e) {
-      let container = getAttractionContainer();
-      let blank = getBlankElements();
-      container[0].innerHTML = "";
-      click = e.target.getAttribute("v")
-      blank[0].value = click;
-      input = click;
-      api = "/api/attractions"+"?page="+0+ "&"+"keyword="+input
-      fetch_data();
-    });
-  }
+async function mrt() {
+    let lll = document.getElementsByClassName("list");
+    for (let i = 0; i < lll.length; i++) {
+        lll[i].style.cursor = "pointer";
+        lll[i].addEventListener("click", async function (e) {
+            let container = getAttractionContainer();
+            let blank = getBlankElements();
+            container[0].innerHTML = "";
+            click = e.target.getAttribute("v");
+            blank[0].value = click;
+            input = click;
+            api = "/api/attractions" + "?page=" + 0 + "&" + "keyword=" + input;
+            await fetch_data();
+        });
+    }
 }
+
 
 
 function mrt_scroll(){
