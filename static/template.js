@@ -44,10 +44,15 @@ function get_input(){
 
 function fetch_data(){
 
+  let nodata_text = document.getElementsByClassName("nodata_text")[0]
   console.log("fetch: " + api)
   fetch(api).then(response => response.json())
       .then(result => {
-          
+        if(result.error){
+          console.log(result.message)
+          nodata_text.style.display = "block"
+          nodata_text.textContent = result.message
+        }else{
           let data = result.data
           nextPage = result.nextPage
           let container = getAttractionContainer();
@@ -92,12 +97,16 @@ function fetch_data(){
               block_mrt_cat.textContent = data[i].category
               l.appendChild(block_mrt_cat);
 
-              let nodata_text = document.getElementsByClassName("nodata_text")[0]
 
               nodata_text.style.display = "none"
             }
           }
-        })
+        }
+        
+        }
+        
+        
+        )
         
       }
 
@@ -187,9 +196,6 @@ function scroll(){
         clearTimeout(time)
         time = setTimeout(function(){fetch_data();isScrolling = false;},100)
 
-      }else{
-        console.log(nextPage)
-        nodata_text.style.display = "block"
       }
       
     }
@@ -197,5 +203,7 @@ function scroll(){
      });
 
 }
+
+
 
 
