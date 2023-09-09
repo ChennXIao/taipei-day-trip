@@ -184,9 +184,9 @@ function scroll(){
     console.log(isScrolling)
     console.log(nextPage)
 
-    if (scrollPosition + windowHeight >= documentHeight && scrollPosition - pre_scrollPosition>=0) {
+    if (!isScrolling&&scrollPosition + windowHeight >= documentHeight && scrollPosition - pre_scrollPosition>=0) {
 
-         
+      isScrolling = true  
       if(nextPage){
         if(input){
           api = "/api/attractions"+"?page="+nextPage+ "&"+"keyword="+input
@@ -194,7 +194,7 @@ function scroll(){
           api = "/api/attractions"+"?page="+nextPage+ "&"+"keyword="
         }
         clearTimeout(time)
-        time = setTimeout(function(){fetch_data();isScrolling = true;},100)
+        time = setTimeout(function(){fetch_data();isScrolling = false;},100)
         
 
       }
