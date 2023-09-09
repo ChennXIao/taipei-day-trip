@@ -195,9 +195,9 @@ function scroll(){
         }
         clearTimeout(time)
         time = setTimeout(function(){fetch_data();isScrolling = false;},100)
+        
 
       }
-      
     }
 
      });
