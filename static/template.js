@@ -161,12 +161,12 @@ function mrt_scroll(){
   left[0].style.cursor = "pointer";
   right[0].style.cursor = "pointer";
   left[0].addEventListener("click", () => {
-    listItemcontainer[0].scrollLeft -= 1000; 
+    listItemcontainer[0].scrollLeft -= 500; 
   });
 
   right[0].addEventListener("click", () => {
 
-    listItemcontainer[0].scrollLeft += 1000; 
+    listItemcontainer[0].scrollLeft += 500; 
   });
 }
 
