@@ -193,11 +193,8 @@ function scroll(){
         }else{
           api = "/api/attractions"+"?page="+nextPage+ "&"+"keyword="
         }
-        clearTimeout(time);
-        time = setTimeout(function () {
-          debouncedFetchData(); // Call the debounced function here
-          isScrolling = false;
-        }, 100);
+        clearTimeout(time)
+        time = setTimeout(function(){fetch_data();isScrolling = true;},100)
         
 
       }
@@ -206,19 +203,6 @@ function scroll(){
      });
 
 }
-const debouncedFetchData = debounce(fetch_data, 500);
-
-
-function debounce(func, delay) {
-  let timer;
-  return function () {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      func.apply(this, arguments);
-    }, delay);
-  };
-}
-
 
 
 
