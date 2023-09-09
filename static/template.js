@@ -194,7 +194,7 @@ function scroll(){
           api = "/api/attractions"+"?page="+nextPage+ "&"+"keyword="
         }
         clearTimeout(time)
-        time = setTimeout(function(){fetch_data();isScrolling = false;},100)
+        time = setTimeout(function(){fetch_data();isScrolling = false;},500)
         
 
       }
