@@ -107,6 +107,9 @@ function fetch_data(){
         
         
         )
+        .finally(() => {
+          isScrolling = false; // Set isScrolling to false after the API request is completed
+        });
         
       }
 
@@ -194,7 +197,7 @@ function scroll(){
           api = "/api/attractions"+"?page="+nextPage+ "&"+"keyword="
         }
         clearTimeout(time)
-        time = setTimeout(function(){fetch_data();isScrolling = false;},500)
+        time = setTimeout(function(){fetch_data();},500)
         
 
       }
