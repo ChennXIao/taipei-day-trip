@@ -107,6 +107,9 @@ function fetch_data(){
         
         
         )
+        .finally(() => {
+          isScrolling = false; // Set isScrolling to false after the API request is completed
+        });
         
       }
 
@@ -158,12 +161,12 @@ function mrt_scroll(){
   left[0].style.cursor = "pointer";
   right[0].style.cursor = "pointer";
   left[0].addEventListener("click", () => {
-    listItemcontainer[0].scrollLeft -= 1000; 
+    listItemcontainer[0].scrollLeft -= 300; 
   });
 
   right[0].addEventListener("click", () => {
 
-    listItemcontainer[0].scrollLeft += 1000; 
+    listItemcontainer[0].scrollLeft += 300; 
   });
 }
 
@@ -184,9 +187,9 @@ function scroll(){
     console.log(isScrolling)
     console.log(nextPage)
 
-    if (scrollPosition + windowHeight >= documentHeight && scrollPosition - pre_scrollPosition>=0) {
+    if (!isScrolling&&scrollPosition + windowHeight >= documentHeight && scrollPosition - pre_scrollPosition>=0) {
 
-         
+      isScrolling = true  
       if(nextPage){
         if(input){
           api = "/api/attractions"+"?page="+nextPage+ "&"+"keyword="+input
@@ -194,10 +197,10 @@ function scroll(){
           api = "/api/attractions"+"?page="+nextPage+ "&"+"keyword="
         }
         clearTimeout(time)
-        time = setTimeout(function(){fetch_data();isScrolling = false;},100)
+        time = setTimeout(function(){fetch_data();},250)
+        
 
       }
-      
     }
 
      });
