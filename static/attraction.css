@@ -1,0 +1,502 @@
+*{
+    margin:0;
+    padding: 0;
+}
+
+.head{
+    height: 54px;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    background-color: white;
+    z-index: 6;
+
+}
+
+.navbar-outer{
+    display: flex;
+/* align-items: flex-start; */
+width: 1200px;
+padding: 10px 0.75%;
+justify-content: center;
+align-items: center;
+box-sizing: border-box;
+flex: auto;
+margin: auto;
+}
+
+.navbar-title{
+    color: var(--primary-color-cyan-70, #489);
+
+    /* Header 2 - Bold 30(34) */
+    font-family: Noto Sans TC;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 34px; /* 113.333% */
+    
+}
+.navbar-btn{
+    justify-content: flex-end;
+    display: flex;
+    flex: auto;
+}
+
+.navbar-btn_order{
+    color: var(--secondary-color-gray-70, #666);
+    /* Body - Med 16(13.3) */
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 13.3px; /* 83.125% */
+    padding: 10px;
+}
+
+.navbar-btn_signin{
+    color: var(--secondary-color-gray-70, #666);
+
+    /* Body - Med 16(13.3) */
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 13.3px; /* 83.125% */
+    padding: 10px;
+}
+.content{
+    margin: auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    box-sizing: border-box;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 1200px;
+    display: flex;
+}
+
+
+.content_img{
+    width: 540px;
+height: 406px;
+flex-shrink: 0;
+position: relative;
+}
+
+
+.content_profile{
+    width: 600px;
+height: 400px;
+
+margin-left: 30px;
+display: block;
+
+}
+
+.circle{
+    width: 22px; /* Set the width */
+    height: 22px; /* Set the height */
+    border: 2px solid #ffffff; /* Set border color */
+    border-radius: 50%; /* Make it round */
+    background-color: #fff; /* Background color when not selected */
+    margin-right: 5px; /* Add some spacing between radio buttons */
+    cursor: pointer; /* Change cursor on hover */
+    text-align: center;
+    vertical-align: sub;
+    color: var(--secondary-color-gray-70, #666);
+
+/* Body - Med 16(13.3) */
+font-family: Noto Sans TC;
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: 13.3px; /* 83.125% */
+}
+
+.circle:checked{
+    background-color: rgb(0, 22, 27);
+    accent-color: #489;
+}
+
+label{
+    margin-right: 10px;
+}
+
+.info{
+    margin: auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    width: 1200px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+
+.content_profile-head{
+    display: flex;
+    height: 33px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-bottom: 15px;
+    color: var(--secondary-color-gray-70, #666);
+    font-family: Noto Sans TC;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px; 
+}
+
+.content_profile-cat{
+    display: flex;
+    height: 22px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-bottom: 20px;
+    color: var(--secondary-color-gray-70, #666);
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 13.3px;
+}
+
+.content_profile-booking{
+    width: auto;
+    height: 302px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    background: var(--secondary-color-gray-20, #E8E8E8);
+    gap: 20px;
+    box-sizing: border-box;
+    padding: 15px 20px;
+    border: 5px;
+    gap: 20px;
+}
+
+
+.content_profile-booking_title{
+    display: flex;
+    height: 22px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-bottom: 15px;
+    color: var(--secondary-color-gray-70, #666);
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 13.3px; 
+}
+.content_profile-booking_intro{
+    display: flex;
+    height: 24px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0; 
+    margin-bottom: 15px;
+    color: var(--secondary-color-gray-70, #666);
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    
+}
+.content_profile-booking_day{
+    display: flex;
+    padding-right: 0px;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 15px;
+    color: var(--secondary-color-gray-70, #666);
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 13.3px;
+}
+
+.content_profile-booking_day__blank{
+    width: 193px;
+    height: 35px;
+    flex-shrink: 0;
+    background-color: white;
+    border: 0;
+}
+.content_profile-booking_choice{
+    display: flex;
+    padding-right: 0px;
+    align-items: center;
+    gap: 5px;    
+    margin-bottom: 25px;
+    color: var(--secondary-color-gray-70, #666);
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 13.3px; 
+}
+.content_profile-booking_fee{
+    display: flex;
+    padding-right: 0px;
+    align-items: center;
+    gap: 5px;    
+    margin-bottom: 25px;
+    color: var(--secondary-color-gray-70, #666);
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 13.3px; 
+}
+.content_profile-booking_btn{
+    display: inline-flex;
+    padding: 10px 20px;
+    align-items: flex-start;
+    border-radius: 5px;
+    background: var(--primary-color-cyan-70, #489);
+    color: var(--additional-color-white, #FFF);
+    text-align: center;
+    font-family: Noto Sans TC;
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; 
+}
+
+
+.upper_separate_line{
+    width: 1200px;
+    height: 1px;
+    flex-shrink: 0;
+    background-color: #E8E8E8;
+    margin: auto;
+    margin-top: 54px;
+}
+
+.info_intro{
+    flex-shrink: 0;
+    margin-bottom: 20px;
+    color: var(--secondary-color-gray-70, #666);
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.info_address-title{
+    display: flex;
+    height: 32px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0; 
+    color: var(--secondary-color-gray-70, #666);
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 13.3px;
+}
+
+.info_address{
+    margin-bottom: 20px;
+    color: var(--secondary-color-gray-70, #666);
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+}
+
+.info_transport-title{
+    display: flex;
+    height: 32px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--secondary-color-gray-70, #666);
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 13.3px; 
+
+}
+.info_transport{
+    color: var(--secondary-color-gray-70, #666);
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.separate_line{
+    width: 1200px;
+    height: 1px;
+    flex-shrink: 0;
+    background-color: #E8E8E8;
+    margin: auto;
+}
+
+.attraction_pic{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.next_left_pic{
+    z-index: 2;
+    display: flex;
+    width: 36px;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    position: absolute;
+
+    left: 10px;
+    cursor: pointer;
+}
+
+.next_right_pic{
+    z-index: 2;
+    display: flex;
+    width: 36px;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+}
+
+.img_page_display{
+    display: flex;
+    height: 12px;
+    width: 100%;
+    justify-content: center;
+    align-items: flex-start;
+    flex-shrink: 0;
+    opacity: 0.75;
+    position: absolute;
+    bottom: 13px;
+}
+
+.small{
+    width: 12px;
+    height: 12px;
+    background-color: #FFF;
+    border-radius: 50%;
+    margin-right: 6px;
+    margin-left: 6px;
+    border: 2px solid white;
+    box-sizing: border-box;
+}
+
+.content_profile-booking_fee__payment{
+    color: var(--secondary-color-gray-70, #666);
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 13.3px; 
+    
+}
+
+
+.footer{
+    display: flex;
+    width: 100%;
+    height: 104px;
+    padding: 40px;
+    flex-direction: column;
+    align-items: center;
+    background: var(--Gray-700, #757575);
+    box-sizing: border-box;
+}
+
+
+
+.footer-title{
+    color: var(--additional-color-white, #FFF);
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 13.3px; 
+}
+
+img {
+    transition: opacity 0.3s ease; 
+  }
+@media (max-width:1200px){
+.navbar-outer{
+    display: flex;
+    width: 100%;
+    height: 54px;
+    padding: 10px 0px 10px 10px;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 25px;
+    flex-shrink: 0;
+}
+
+.content{
+    width: 100%;
+}
+.content_img {
+    width: 50%;
+}
+.content_profile {
+    width: calc(50% - 30px);
+}
+.upper_separate_line{
+    width: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.separate_line {
+    width: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.info {
+    width: 100%;
+    padding: 10px 10px 0 20px;
+}
+}
+
+@media (max-width:768px){
+    .content {
+        padding:0;
+        display: block;
+    }
+    .content_img {
+        width: 100%;
+        height: 350px;
+    }
+    .attraction_pic {
+        border-radius: 0;
+    }
+
+    .content_profile {
+        width: 100%;
+        height: auto;
+        margin-left: 0;
+        padding: 20px 10px 0 10px;
+        box-sizing: border-box;
+    }
+    .content_profile-booking {
+        height: auto;
+    }
+
+
+}
