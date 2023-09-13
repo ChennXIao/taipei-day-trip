@@ -1,4 +1,4 @@
-let ID = parseInt(window.location.href.slice(33))
+let ID = parseInt(window.location.href.slice(35))
 let img_page_display;
 let profile_img = document.getElementsByClassName("content_img")[0]
 let profile_header = document.getElementsByClassName("content_profile-head")[0]
