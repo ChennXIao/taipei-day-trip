@@ -13,6 +13,26 @@ db_config = {
 
 cnt = mysql.connector.connect(**db_config)
 cur = cnt.cursor(dictionary=True,buffered=True)
+=======
+
+db_config = {
+    "host": "localhost",
+    "user": "root",
+	"password": "sharon616",
+	"database": "taipei",
+	"port": 3306,
+
+}
+
+# cnt = mysql.connector.connect(
+#   host="localhost",
+#   user="root",
+#   password="sharon616",
+#   database="taipei",
+#   charset="utf8"
+# )
+# cur = cnt.cursor(dictionary=True,buffered=True)
+>>>>>>> 086f77e5d27685a05c322acd40fa35aee01b78d2
 
 
 

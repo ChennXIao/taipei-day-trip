@@ -54,6 +54,7 @@ function get_input(){
     input = blank[0].value
     container[0].innerHTML = "";
     api = "/api/attractions"+"?page="+0+ "&"+"keyword="+input
+    api = "/api/attractions"+"?page="+0+ "&"+"keyword="+input
     fetch_data();
     }
   )
@@ -63,6 +64,7 @@ function get_input(){
 
 function fetch_data(){
 
+  let nodata_text = document.getElementsByClassName("nodata_text")[0]
   let nodata_text = document.getElementsByClassName("nodata_text")[0]
   console.log("fetch: " + api)
   fetch(api).then(response => response.json())
@@ -133,7 +135,15 @@ function fetch_data(){
         .finally(() => {
           isScrolling = false; // Set isScrolling to false after the API request is completed
         });
+        }
         
+        }
+        
+        
+        )
+        .finally(() => {
+          isScrolling = false; // Set isScrolling to false after the API request is completed
+        });
       }
 
 
@@ -169,6 +179,7 @@ function mrt(){
       click = e.target.getAttribute("v")
       blank[0].value = click;
       input = click;
+      api = "/api/attractions"+"?page="+0+ "&"+"keyword="+input
       api = "/api/attractions"+"?page="+0+ "&"+"keyword="+input
       fetch_data();
     });
@@ -213,10 +224,15 @@ function scroll(){
     if (!isScrolling&&scrollPosition + windowHeight >= documentHeight && scrollPosition - pre_scrollPosition>=0) {
 
       isScrolling = true  
+    if (!isScrolling&&scrollPosition + windowHeight >= documentHeight && scrollPosition - pre_scrollPosition>=0) {
+
+      isScrolling = true  
       if(nextPage){
         if(input){
           api = "/api/attractions"+"?page="+nextPage+ "&"+"keyword="+input
+          api = "/api/attractions"+"?page="+nextPage+ "&"+"keyword="+input
         }else{
+          api = "/api/attractions"+"?page="+nextPage+ "&"+"keyword="
           api = "/api/attractions"+"?page="+nextPage+ "&"+"keyword="
         }
         clearTimeout(time)
