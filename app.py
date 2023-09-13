@@ -43,8 +43,10 @@ def api_attractions():
 
 	api_attractions = "SELECT * FROM attraction WHERE name LIKE %s or mrt = %s LIMIT 12 OFFSET %s;"
 	# print(api_attractions)
+	# print(api_attractions)
 	cur.execute(api_attractions,("%"+message+"%",message,row))
 
+	nextPage_check = "SELECT * FROM attraction WHERE name LIKE %s or mrt = %s LIMIT 12 OFFSET %s;"
 	nextPage_check = "SELECT * FROM attraction WHERE name LIKE %s or mrt = %s LIMIT 12 OFFSET %s;"
 	cur2.execute(api_attractions,("%"+message+"%",message,nextPage*12))
 	result2 = cur2.fetchall()
@@ -175,5 +177,6 @@ def attraction(id):
 
 if __name__ == "__main__":
  
+ app.run(host="0.0.0.0", port=3000,debug=True)
  app.run(host="0.0.0.0", port=3000,debug=True)
  app.run(debug=True)
