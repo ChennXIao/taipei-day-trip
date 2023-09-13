@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link href="templates.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='attraction.css') }}">
+
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="head">
+        <navbar class="navbar-outer">
+            <div class="navbar-title">
+                台北一日遊
+            </div>
+            <div class="navbar-btn">
+                <div class="navbar-btn_order">預定行程</div>
+                <div class="navbar-btn_signin">登入/註冊</div>
+            </div>
+        </navbar>
+    </div>
+    <div class="upper_separate_line"></div>
+    <div class="content">
+        <div class="content_img">
+            <div class="next_left_pic">
+                <img src="{{ url_for('static', filename='arrow left.png') }}">
+            </div>
+            <div class="next_right_pic">
+                <img src="{{ url_for('static', filename='arrow right.png') }}" class="arrow_right">
+            </div>
+            <div class="img_page_display">
+
+            </div>
+        </div>
+        <div class="content_profile">
+            <div class="content_profile-head">
+
+
+            </div>
+            <div class="content_profile-cat">
+            </div>
+            <div class="content_profile-booking">
+                <div class="content_profile-booking_title">
+                    訂購導覽行程
+                </div>
+                <div class="content_profile-booking_intro">
+                    以此景點為中心的一日行程，帶您探索城市角落故事
+                </div>
+                <div class="content_profile-booking_day">
+                    <div>
+                        選擇日期：
+                    </div>
+                        <input type="date" placeholder="YYYY-MM-DD"  class="content_profile-booking_day__blank"> 
+                </div>
+                <div class="content_profile-booking_choice">
+                    <div>
+                        選擇時間：
+                    </div>
+                    <div>
+
+                        <label>
+                            <input type="radio" class="circle" name="radAnswer"> 上半天
+                        </label>
+    
+                        <label>
+                            <input type="radio" class="circle" name="radAnswer"> 下半天
+                        </label>
+                    </div>
+                </div>
+                <div class="content_profile-booking_fee">
+                    <div>
+                        導覽費用：
+                    </div>
+                    <div class="content_profile-booking_fee__payment">
+                    </div>
+                </div>
+                <div class="content_profile-booking_btn">
+                    <btn>開始預約行程</btn>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+    <div class="separate_line"></div>
+    <div class="info">
+        <div class="info_intro">
+        </div>
+        <div class="info_address-title">
+            景點地址：
+        </div>
+        <div class="info_address">
+        </div>
+        <div class="info_transport-title">
+            交通方式：
+        </div>
+        <div class="info_transport">
+        </div>
+    </div>
+    <div  class="footer">
+        <div class="footer-title">
+            COPYRIGHT © 2021 台北一日遊
+        </div>
+    </div>
+
+    <script type="module" src="{{ url_for('static', filename='att.js') }}"></script>
+
+
+</body>
