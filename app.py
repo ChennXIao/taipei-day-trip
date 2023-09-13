@@ -4,7 +4,6 @@ import requests
 from mysql.connector import pooling
 from flask import config
 
-<<<<<<< HEAD
 db_config = {
     "host": "localhost",
     "user": "root",
@@ -14,26 +13,6 @@ db_config = {
 
 cnt = mysql.connector.connect(**db_config)
 cur = cnt.cursor(dictionary=True,buffered=True)
-=======
-
-db_config = {
-    "host": "localhost",
-    "user": "root",
-	"password": "sharon616",
-	"database": "taipei",
-	"port": 3306,
-
-}
-
-# cnt = mysql.connector.connect(
-#   host="localhost",
-#   user="root",
-#   password="sharon616",
-#   database="taipei",
-#   charset="utf8"
-# )
-# cur = cnt.cursor(dictionary=True,buffered=True)
->>>>>>> 086f77e5d27685a05c322acd40fa35aee01b78d2
 
 
 
@@ -60,18 +39,13 @@ def api_attractions():
 	
 	cnt = mysql.connector.connect(**db_config)
 	cur = cnt.cursor(dictionary=True,buffered=True)
-<<<<<<< HEAD
 	cur2 = cnt.cursor(dictionary=True,buffered=True)
 
-	api_attractions = "SELECT * FROM Attraction WHERE name LIKE %s or mrt = %s LIMIT 12 OFFSET %s;"
-	# print(api_attractions)
-=======
 	api_attractions = "SELECT * FROM attraction WHERE name LIKE %s or mrt = %s LIMIT 12 OFFSET %s;"
-	print(api_attractions)
->>>>>>> 086f77e5d27685a05c322acd40fa35aee01b78d2
+	# print(api_attractions)
 	cur.execute(api_attractions,("%"+message+"%",message,row))
 
-	nextPage_check = "SELECT * FROM Attraction WHERE name LIKE %s or mrt = %s LIMIT 12 OFFSET %s;"
+	nextPage_check = "SELECT * FROM attraction WHERE name LIKE %s or mrt = %s LIMIT 12 OFFSET %s;"
 	cur2.execute(api_attractions,("%"+message+"%",message,nextPage*12))
 	result2 = cur2.fetchall()
 	
@@ -88,7 +62,6 @@ def api_attractions():
 		response= {"nextPage":nextPage,"data":[]}
 		for i in range(len(result)):
 			response["data"].append(result[i])
-			# img.append(result[i]["images"])
 			urls = result[i]["images"].split(',')
 			result[i]["images"] = urls
 
@@ -119,18 +92,12 @@ def api_attractionId(attractionId):
 	print(api_attractions)
 	cur.execute(api_attractionId,(attractionId,))
 	result = cur.fetchall()
-	print(result)
 	try:
 		if result:
 			response= {"data":result[0]}
-<<<<<<< HEAD
 			
 			urls = result[0]["images"].split(',')
 			result[0]["images"] = urls				
-=======
-			urls = result[0]["images"].split(',')
-			result[0]["images"] = urls					
->>>>>>> 086f77e5d27685a05c322acd40fa35aee01b78d2
 			response = Response(
 			response=json.dumps(response, ensure_ascii=False, indent=2),
 			mimetype="application/json"
@@ -159,7 +126,7 @@ def api_attractionId(attractionId):
 
 
 @app.route("/api/mrts")
-def attraction():
+def mrt():
 
 	cnt = mysql.connector.connect(**db_config)
 	cur = cnt.cursor(dictionary=True,buffered=True)
@@ -192,9 +159,11 @@ def attraction():
 
 
 
-# @app.route("/attraction/<id>")
-# def attraction(id):
-# 	return render_template("attraction.html")
+@app.route("/attraction/<id>")
+def attraction(id):
+	data = id
+	return render_template("attraction.html", data=data)
+
 # @app.route("/booking")
 # def booking():
 # 	return render_template("booking.html")
@@ -206,5 +175,5 @@ def attraction():
 
 if __name__ == "__main__":
  
-#  app.run(host="0.0.0.0", port=3000,debug=True)
+ app.run(host="0.0.0.0", port=3000,debug=True)
  app.run(debug=True)
