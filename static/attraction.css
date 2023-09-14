@@ -34,7 +34,6 @@ margin: auto;
     font-style: normal;
     font-weight: 700;
     line-height: 34px; /* 113.333% */
-    cursor:pointer;
     
 }
 .navbar-btn{
@@ -269,7 +268,7 @@ label{
 
 
 .upper_separate_line{
-    width: 1200px;
+    
     height: 1px;
     flex-shrink: 0;
     background-color: #E8E8E8;
@@ -477,8 +476,9 @@ img {
 
 @media (max-width:768px){
     .content {
-        padding:0;
+        padding: 0;
         display: block;
+        margin-top: 0;
     }
     .content_img {
         width: 100%;
