@@ -127,7 +127,7 @@ def api_attractionId(attractionId):
 
 
 @app.route("/api/mrts")
-def attraction():
+def api_mrt():
 
 	cnt = mysql.connector.connect(**db_config)
 	cur = cnt.cursor(dictionary=True,buffered=True)
@@ -160,9 +160,9 @@ def attraction():
 
 
 
-# @app.route("/attraction/<id>")
-# def attraction(id):
-# 	return render_template("attraction.html")
+@app.route("/attraction/<id>")
+def attraction(id):
+	return render_template("attraction.html")
 # @app.route("/booking")
 # def booking():
 # 	return render_template("booking.html")
