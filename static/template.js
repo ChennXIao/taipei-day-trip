@@ -4,7 +4,6 @@ let nextPage;
 let time;
 let isScrolling = false;
 let data;
-
 let click;
 let clicking;
 document.addEventListener('DOMContentLoaded', function() {
@@ -14,7 +13,8 @@ document.addEventListener('DOMContentLoaded', function() {
   setTimeout(mrt, 1000); 
   mrt_scroll();
   setTimeout(scroll, 300); 
-  get_clicked();
+  setTimeout(get_clicked, 300); 
+  
 });
 
 function getAttractionContainer() {
@@ -30,6 +30,7 @@ function getBlankElements() {
 function get_clicked(){
 let BLOCK = getAttractionContainer();
 for (let i = 0; i < BLOCK.length; i++) {
+  
   BLOCK[i].style.cursor = "pointer";
   BLOCK[i].addEventListener("click", function (e) {
     clicking = e.target.id
@@ -41,7 +42,6 @@ for (let i = 0; i < BLOCK.length; i++) {
   })
 }
 }
-
 function get_input(){
 
   let query = document.getElementsByClassName("form")
@@ -54,7 +54,6 @@ function get_input(){
     input = blank[0].value
     container[0].innerHTML = "";
     api = "/api/attractions"+"?page="+0+ "&"+"keyword="+input
-    api = "/api/attractions"+"?page="+0+ "&"+"keyword="+input
     fetch_data();
     }
   )
@@ -65,7 +64,6 @@ function get_input(){
 function fetch_data(){
 
   let nodata_text = document.getElementsByClassName("nodata_text")[0]
-  let nodata_text = document.getElementsByClassName("nodata_text")[0]
   console.log("fetch: " + api)
   fetch(api).then(response => response.json())
       .then(result => {
@@ -74,14 +72,13 @@ function fetch_data(){
           nodata_text.style.display = "block"
           nodata_text.textContent = result.message
         }else{
-          data = result.data
+          let data = result.data
           nextPage = result.nextPage
           let container = getAttractionContainer();
           for(let i=0;i< data.length; i++){
 
             let block = document.createElement('div');
             block.className = "block";
-            block.setAttribute("id",data[i].id)
             container[0].appendChild(block);
             var lastChild = container[0].lastChild;
             
@@ -89,8 +86,7 @@ function fetch_data(){
             let img = document.createElement('img');
             img.className = "pic";
             img.setAttribute('src', data[i].images[0]);
-            img.setAttribute("id",data[i].id)
-
+            img.setAttribute('id', data[i].id);
             lastChild.appendChild(img);
 
             let block_detail = document.createElement('div');
@@ -99,7 +95,6 @@ function fetch_data(){
 
             let block_mrt = document.createElement('div');
             block_mrt.className = "block-mrt";
-            block_mrt.setAttribute("id",data[i].id)
             lastChild.appendChild(block_mrt);
             
             if(lastChild){
@@ -135,15 +130,7 @@ function fetch_data(){
         .finally(() => {
           isScrolling = false; // Set isScrolling to false after the API request is completed
         });
-        }
         
-        }
-        
-        
-        )
-        .finally(() => {
-          isScrolling = false; // Set isScrolling to false after the API request is completed
-        });
       }
 
 
@@ -180,7 +167,6 @@ function mrt(){
       blank[0].value = click;
       input = click;
       api = "/api/attractions"+"?page="+0+ "&"+"keyword="+input
-      api = "/api/attractions"+"?page="+0+ "&"+"keyword="+input
       fetch_data();
     });
   }
@@ -195,12 +181,12 @@ function mrt_scroll(){
   left[0].style.cursor = "pointer";
   right[0].style.cursor = "pointer";
   left[0].addEventListener("click", () => {
-    listItemcontainer[0].scrollLeft -= 250; 
+    listItemcontainer[0].scrollLeft -= 300; 
   });
 
   right[0].addEventListener("click", () => {
 
-    listItemcontainer[0].scrollLeft += 250; 
+    listItemcontainer[0].scrollLeft += 300; 
   });
 }
 
@@ -208,7 +194,6 @@ function mrt_scroll(){
 function scroll(){
 
   let pre_scrollPosition = window.scrollY;
-  let nodata_text = document.getElementsByClassName("nodata_text")[0]
 
   window.addEventListener("load", function () {
     window.scrollTo(0, 0);
@@ -219,39 +204,22 @@ function scroll(){
     let documentHeight = document.documentElement.scrollHeight;
     let scrollPosition = window.scrollY;
     console.log(isScrolling)
-    console.log(nextPage)
 
-    if (!isScrolling&&scrollPosition + windowHeight >= documentHeight && scrollPosition - pre_scrollPosition>=0) {
-
-      isScrolling = true  
     if (!isScrolling&&scrollPosition + windowHeight >= documentHeight && scrollPosition - pre_scrollPosition>=0) {
 
       isScrolling = true  
       if(nextPage){
         if(input){
           api = "/api/attractions"+"?page="+nextPage+ "&"+"keyword="+input
-          api = "/api/attractions"+"?page="+nextPage+ "&"+"keyword="+input
         }else{
-          api = "/api/attractions"+"?page="+nextPage+ "&"+"keyword="
           api = "/api/attractions"+"?page="+nextPage+ "&"+"keyword="
         }
         clearTimeout(time)
-        time = setTimeout(function(){fetch_data();},500)
+        time = setTimeout(function(){fetch_data();},250)
         
-
       }
     }
-
      });
 
 }
-
-
-
-
-
-
-
-
-
 

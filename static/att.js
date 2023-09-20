@@ -1,4 +1,6 @@
 let ID = parseInt(window.location.href.slice(33))
+let a = "http://3.105.22.12:3000/attraction/23"
+console.log(a.slice(35))
 let img_page_display;
 let profile_img = document.getElementsByClassName("content_img")[0]
 let profile_header = document.getElementsByClassName("content_profile-head")[0]
@@ -13,6 +15,7 @@ let next_right = document.getElementsByClassName("next_right_pic")[0]
 let day_trip = document.querySelectorAll(".circle")[0]
 let night_trip = document.querySelectorAll(".circle")[1]
 let pay = document.querySelectorAll(".content_profile-booking_fee__payment")[0]
+let title = document.getElementsByClassName("navbar-title")[0]
 
 att();
 
@@ -91,7 +94,15 @@ function att(){
       night_trip.addEventListener("click",()=>{
         pay.textContent = "新台幣 2500 元"
       })
+      title.addEventListener("click",()=>{
+        window.location.href= "/"
+      })
+
+  
     })
     
+
     }
+
+
 

@@ -9,7 +9,7 @@
     <title>Document</title>
 </head>
 <body>
-
+    <div class="mask"></div>
     <div class="head">
         <navbar class="navbar-outer">
             <div class="navbar-title">
@@ -104,7 +104,38 @@
             COPYRIGHT © 2021 台北一日遊
         </div>
     </div>
-
-    <script type="module" src="{{ url_for('static', filename='att.js') }}"></script>
-
+    <div class="signup_form_box" >
+        
+        <div class="signin_form_box_header"></div>
+            <form method="post" class="signup_form">
+                <h3 class="signup_form_title">註冊會員帳號</h3>
+                <img src="{{ url_for('static', filename='icon_close.png') }}" class="signup_form_closing">
+                <input type="text" name="name" class="name" placeholder="輸入姓名"/>
+                <br>
+                <input type="text" name="email" class="email" placeholder="輸入電子郵件"/>
+                <br>
+                <input type="password" name="password" class="password" placeholder="輸入密碼"/>
+                <input type="submit" value="註冊新帳戶" class="signup_form_btn"/>
+                <p class="signup_form_msg"></p>
+                <p class="signup_form_switch">已經有帳戶了？點此登入</p>
+            </form> 
+        </div>
+        <div class="signin_form_box">
+        <div class="signin_form_box_header"></div>
+            <form method="post" class="signin_form">
+                <h3 class="signin_form_title">登入會員帳號</h3>
+                <img src="{{ url_for('static', filename='icon_close.png') }}" class="signin_form_closing">
+                <input type="text" name="email" class="email" placeholder="輸入電子郵件"/>
+                <br>
+                <input type="password" name="password" class="password" placeholder="輸入密碼"/>
+                <input type="submit" value="登入帳戶" class="signin_form_btn"/>
+                <p class="signin_form_msg"></p>
+                <p class="signin_form_switch">還沒有帳戶了？點此註冊</p>
+    
+            </form> 
+    
+        </div>
 </body>
+<script type="module" src="{{ url_for('static', filename='att.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='login.js') }}"></script>
+</html>
