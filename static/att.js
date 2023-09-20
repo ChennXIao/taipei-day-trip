@@ -1,4 +1,4 @@
-let ID = parseInt(window.location.href.slice(33))
+let ID = parseInt(window.location.href.slice(36))
 let a = "http://3.105.22.12:3000/attraction/23"
 console.log(a.slice(35))
 let img_page_display;
