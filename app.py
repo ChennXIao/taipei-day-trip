@@ -86,7 +86,7 @@ def api_user_auth():
 			response = {"token": encoded} 
 		else:
 
-			response = {"error": True,"message":"或密碼錯誤"}
+			response = {"error": True,"message":"信箱或密碼錯誤"}
 			response = Response(
 					response=json.dumps(response, ensure_ascii=False, indent=2),
 					mimetype="application/json",status=400
@@ -250,12 +250,6 @@ def mrt():
 
 	return response
 
-
-
-
-@app.route("/attraction/<id>")
-def attraction(id):
-	return render_template("attraction.html")
 @app.route("/attraction/<id>")
 def attraction(id):
 	return render_template("attraction.html")
@@ -265,7 +259,6 @@ def attraction(id):
 # @app.route("/thankyou")
 # def thankyou():
 # 	return render_template("thankyou.html")
-
 
 
 if __name__ == "__main__":
