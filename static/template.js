@@ -6,6 +6,7 @@ let isScrolling = false;
 let data;
 let click;
 let clicking;
+
 document.addEventListener('DOMContentLoaded', function() {
   fetch_data();
   get_input();
@@ -25,7 +26,6 @@ function getAttractionContainer() {
 function getBlankElements() {
   return document.getElementsByClassName("input");
 }
-
 
 function get_clicked(){
 let BLOCK = getAttractionContainer();
@@ -86,6 +86,7 @@ function fetch_data(){
             let img = document.createElement('img');
             img.className = "pic";
             img.setAttribute('src', data[i].images[0]);
+            img.setAttribute('id', data[i].id);
             img.setAttribute('id', data[i].id);
             lastChild.appendChild(img);
 
@@ -194,7 +195,6 @@ function mrt_scroll(){
 function scroll(){
 
   let pre_scrollPosition = window.scrollY;
-  let nodata_text = document.getElementsByClassName("nodata_text")[0]
 
   window.addEventListener("load", function () {
     window.scrollTo(0, 0);
@@ -205,7 +205,6 @@ function scroll(){
     let documentHeight = document.documentElement.scrollHeight;
     let scrollPosition = window.scrollY;
     console.log(isScrolling)
-    console.log(nextPage)
 
     if (!isScrolling&&scrollPosition + windowHeight >= documentHeight && scrollPosition - pre_scrollPosition>=0) {
 
@@ -219,10 +218,9 @@ function scroll(){
         clearTimeout(time)
         time = setTimeout(function(){fetch_data();},250)
         
-
       }
     }
-
      });
 
 }
+

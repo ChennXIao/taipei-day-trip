@@ -1,4 +1,6 @@
-let ID = parseInt(window.location.href.slice(35))
+let ID = parseInt(window.location.href.slice(36))
+let a = "http://3.105.22.12:3000/attraction/23"
+console.log(a.slice(35))
 let img_page_display;
 let profile_img = document.getElementsByClassName("content_img")[0]
 let profile_header = document.getElementsByClassName("content_profile-head")[0]
@@ -95,8 +97,12 @@ function att(){
       title.addEventListener("click",()=>{
         window.location.href= "/"
       })
-    
+
+  
     })
     
+
     }
+
+
 
