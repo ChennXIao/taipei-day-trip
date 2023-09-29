@@ -85,7 +85,7 @@ def api_user_auth():
 			response = {"token": encoded} 
 		else:
 
-			response = {"error": True,"message":"信箱或密碼錯誤"}
+			response = {"error": True,"message":"信箱信箱或密碼錯誤"}
 			response = Response(
 					response=json.dumps(response, ensure_ascii=False, indent=2),
 					mimetype="application/json",status=400
@@ -393,7 +393,6 @@ def booking():
 # @app.route("/thankyou")
 # def thankyou():
 # 	return render_template("thankyou.html")
-
 
 
 if __name__ == "__main__":
