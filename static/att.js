@@ -1,6 +1,6 @@
 import * as loginExports from "/static/login.js"
 
-let ID = parseInt(window.location.href.slice(33))
+let ID = parseInt(window.location.href.slice(36))
 console.log(ID)
 let img_page_display;
 let profile_img = document.getElementsByClassName("content_img")[0]
