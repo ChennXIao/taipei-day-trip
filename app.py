@@ -284,9 +284,9 @@ def api_booking():
 			if token_id:
 				response= {"ok": True}			
 				response = Response(
-				response=json.dumps(response, ensure_ascii=False, indent=2),
-				mimetype="application/json"
-			)
+					response=json.dumps(response, ensure_ascii=False, indent=2),
+					mimetype="application/json"
+				)
 			
 			else:
 				response= {"error":True,"message":"未登入系統，拒絕存取"}
