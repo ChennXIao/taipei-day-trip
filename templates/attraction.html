@@ -52,22 +52,19 @@
                     <div>
                         選擇日期：
                     </div>
-                        <input type="date" placeholder="YYYY-MM-DD"  class="content_profile-booking_day__blank"> 
+                    <input type="date" placeholder="YYYY-MM-DD"  class="content_profile-booking_day__blank" required /> 
+                    <div class="content_profile-booking_day-hint" style="display: none; color: red;"> 請選擇日期 </div>
                 </div>
                 <div class="content_profile-booking_choice">
                     <div>
                         選擇時間：
                     </div>
                     <div>
-
-                        <label>
-                            <input type="radio" class="circle" name="radAnswer"> 上半天
-                        </label>
-    
-                        <label>
-                            <input type="radio" class="circle" name="radAnswer"> 下半天
-                        </label>
+                        <label><input type="radio" class="circle" name="radAnswer">上半天</label>    
+                        <label><input type="radio" class="circle" name="radAnswer">下半天</label>
                     </div>
+                    <div class="content_profile-booking_choice-hint" style="display: none; color: red;"> 請選擇時間 </div>
+
                 </div>
                 <div class="content_profile-booking_fee">
                     <div>

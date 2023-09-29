@@ -2,7 +2,6 @@ from flask import *
 import mysql.connector 
 import requests
 from mysql.connector import pooling
-from flask import config
 import jwt 
 from datetime import datetime,timedelta
 
@@ -16,11 +15,11 @@ key = "secret"
 cnt = mysql.connector.connect(**db_config)
 cur = cnt.cursor(dictionary=True,buffered=True)
 
-
 app=Flask(__name__)
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
 app.config['JSONIFY_MIMETYPE'] = "application/json;charset=utf-8"
+
 
 # Pages
 @app.route("/", methods=["POST","GET"])
@@ -86,7 +85,7 @@ def api_user_auth():
 			response = {"token": encoded} 
 		else:
 
-			response = {"error": True,"message":"或密碼錯誤"}
+			response = {"error": True,"message":"信箱或密碼錯誤"}
 			response = Response(
 					response=json.dumps(response, ensure_ascii=False, indent=2),
 					mimetype="application/json",status=400
@@ -227,7 +226,6 @@ def mrt():
 	attraction_mrt  = "select mrt from attraction group by mrt order by count(mrt) desc limit 40;"
 	cur.execute(attraction_mrt)
 	mrt_result = cur.fetchall()
-	# print(mrt_result)
 	
 	if mrt_result:
 		response= {"data":[]}
@@ -251,17 +249,147 @@ def mrt():
 	return response
 
 
+def JWT():
+	auth_header = request.headers.get('Authorization')
+				
+	if 'Bearer ' in auth_header:
+		token = auth_header.split('Bearer ')[1] 
+	else:
+		pass
+	payload = jwt.decode(token, key, algorithms=["HS256"])
+	token_id = payload.get('id')
+	return token_id
+
+
+@app.route("/api/booking",methods=["POST","GET","DELETE"])
+def api_booking():
+	if request.method == 'POST':
+
+		cnt = mysql.connector.connect(**db_config)
+		cur = cnt.cursor(dictionary=True,buffered=True)
+		try:
+			token_id = JWT()
+			orderId = request.json.get('attractionId')
+			date = request.json.get('date').replace(" ","")
+			time = request.json.get('time').replace(" ","")
+			price = request.json.get('price').replace(" ","")
+
+			order_data = (token_id,orderId,date,time,price)
+
+			api_orderId = "insert into `order`(member_id,order_id,date,time,price)value(%s,%s,%s,%s,%s);"
+			cur.execute(api_orderId,order_data)
+			cnt.commit()
+
+		
+			if token_id:
+				response= {"ok": True}			
+				response = Response(
+				response=json.dumps(response, ensure_ascii=False, indent=2),
+				mimetype="application/json"
+			)
+			
+			else:
+				response= {"error":True,"message":"未登入系統，拒絕存取"}
+				response = Response(
+						response=json.dumps(response, ensure_ascii=False, indent=2),
+						mimetype="application/json",status=403
+			)
+	
+		except jwt.exceptions.ExpiredSignatureError:
+			response= {"error":True,"message":"建立失敗，輸入不正確或其他原因"}
+			response = Response(
+						response=json.dumps(response, ensure_ascii=False, indent=2),
+						mimetype="application/json",status=400
+				)
+		except Exception:
+				response= {"error":True,"message":"伺服器內部錯誤"}
+				response = Response(
+						response=json.dumps(response, ensure_ascii=False, indent=2),
+						mimetype="application/json",status=500
+				)
+
+		cur.close()
+		return response
+	
+	if request.method == 'GET':
+		cnt = mysql.connector.connect(**db_config)
+		cur = cnt.cursor(dictionary=True,buffered=True)
+		cur2 = cnt.cursor(dictionary=True,buffered=True)
+		
+		token_id = JWT()
+
+		try:
+			api_orderId = "select * from member inner join `order` on member.id=`order`.member_id where member.id = %s;"
+			cur.execute(api_orderId,(token_id,))
+			order_result = cur.fetchall()
+
+			if order_result:
+
+				get_attration = "SELECT * FROM attraction WHERE id = %s;"
+				cur2.execute(get_attration,(order_result[len(order_result)-1]["order_id"],))
+				attraction_result = cur2.fetchall()
+
+				urls = attraction_result[0]["images"].split(',')
+				attraction_result[0]["images"] = urls	
+				
+				response = {"data":{
+									"attraction":{
+										"id":attraction_result[0]["id"],
+										"name":attraction_result[0]["name"],
+										"address":attraction_result[0]["address"],
+										"image":attraction_result[0]["images"][0]}},
+									"date":order_result[0]["date"],
+									"time":order_result[0]["time"],
+									"price":order_result[0]["price"],
+									}
+			else:
+				response= {"data":None}
+				response = Response(
+						response=json.dumps(response, ensure_ascii=False, indent=2),
+						mimetype="application/json",status=200
+					)
+
+		except:
+			response= {"error":True,"message":"伺服器內部錯誤"}
+			response = Response(
+			response=json.dumps(response, ensure_ascii=False, indent=2),
+				mimetype="application/json",status=500
+				)	
+		return response
+	
+	if request.method == 'DELETE':
+		cnt = mysql.connector.connect(**db_config)
+		cur = cnt.cursor(dictionary=True,buffered=True)
+		try:
+			token_id = JWT()
+			order_del = "DELETE FROM `order` WHERE member_id=%s;"
+			cur.execute(order_del,(token_id,))
+			print(cur)
+			cnt.commit()
+
+			response= {"ok": True}	
+			response = Response(
+				response=json.dumps(response, ensure_ascii=False, indent=2),
+				mimetype="application/json",status=200
+			)
+		except:
+			response= {"error":True,"message":"未登入系統，拒絕存取"}
+			response = Response(
+				response=json.dumps(response, ensure_ascii=False, indent=2),
+				mimetype="application/json",status=403
+			)
+		return response
+
+
+
 
 
 @app.route("/attraction/<id>")
 def attraction(id):
 	return render_template("attraction.html")
-@app.route("/attraction/<id>")
-def attraction(id):
-	return render_template("attraction.html")
-# @app.route("/booking")
-# def booking():
-# 	return render_template("booking.html")
+@app.route("/booking")
+def booking():
+	return render_template("booking.html")
 # @app.route("/thankyou")
 # def thankyou():
 # 	return render_template("thankyou.html")

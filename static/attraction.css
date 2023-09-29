@@ -51,6 +51,8 @@ margin: auto;
     font-weight: 500;
     line-height: 13.3px; /* 83.125% */
     padding: 10px;
+    cursor: pointer;
+
 }
 
 .navbar-btn_signin{
@@ -264,6 +266,7 @@ label{
     font-style: normal;
     font-weight: 400;
     line-height: 16px; 
+    cursor: pointer;
 }
 
 
@@ -559,7 +562,6 @@ img {
 }
 
 
-
 .name{
     width: 310px;
     height: 47px;
@@ -571,6 +573,12 @@ img {
 
     padding: 15px;
     box-sizing: border-box;
+
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 13.3px; /* 83.125% */
 
 
 }
@@ -584,6 +592,12 @@ img {
     margin-bottom: 10px;
     padding: 15px;
     box-sizing: border-box;
+
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 13.3px; /* 83.125% */
 
     
 }

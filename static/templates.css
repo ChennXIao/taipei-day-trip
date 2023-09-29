@@ -62,10 +62,8 @@ margin: auto;
     font-style: normal;
     font-weight: 500;
     line-height: 13.3px; /* 83.125% */
-
- 
-    
     padding: 10px;
+    cursor: pointer;
 }
 
 .navbar-btn_signin{
@@ -783,6 +781,12 @@ box-sizing: border-box;
     padding: 15px;
     box-sizing: border-box;
 
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 13.3px; /* 83.125% */
+
 
 }
 .email{
@@ -795,6 +799,12 @@ box-sizing: border-box;
     margin-bottom: 10px;
     padding: 15px;
     box-sizing: border-box;
+
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 13.3px; /* 83.125% */
 
     
 }

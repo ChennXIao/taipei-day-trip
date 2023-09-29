@@ -16,19 +16,6 @@ document.addEventListener('DOMContentLoaded', function() {
   setTimeout(get_clicked, 300); 
   
 });
-let data;
-let click;
-let clicking;
-document.addEventListener('DOMContentLoaded', function() {
-  fetch_data();
-  get_input();
-  fetch_mrt();
-  setTimeout(mrt, 1000); 
-  mrt_scroll();
-  setTimeout(scroll, 300); 
-  setTimeout(get_clicked, 300); 
-  
-});
 
 function getAttractionContainer() {
   return document.getElementsByClassName("attraction-container");
@@ -40,21 +27,6 @@ function getBlankElements() {
 }
 
 
-function get_clicked(){
-let BLOCK = getAttractionContainer();
-for (let i = 0; i < BLOCK.length; i++) {
-  
-  BLOCK[i].style.cursor = "pointer";
-  BLOCK[i].addEventListener("click", function (e) {
-    clicking = e.target.id
-    console.log(clicking)
-    let url = "/attraction/"+clicking
-    window.location.href = url
-    
-    
-  })
-}
-}
 function get_clicked(){
 let BLOCK = getAttractionContainer();
 for (let i = 0; i < BLOCK.length; i++) {
@@ -114,7 +86,6 @@ function fetch_data(){
             let img = document.createElement('img');
             img.className = "pic";
             img.setAttribute('src', data[i].images[0]);
-            img.setAttribute('id', data[i].id);
             img.setAttribute('id', data[i].id);
             lastChild.appendChild(img);
 
