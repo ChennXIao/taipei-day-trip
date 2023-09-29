@@ -338,9 +338,9 @@ def api_booking():
 										"name":attraction_result[0]["name"],
 										"address":attraction_result[0]["address"],
 										"image":attraction_result[0]["images"][0]}},
-									"date":order_result[0]["date"],
-									"time":order_result[0]["time"],
-									"price":order_result[0]["price"],
+									"date":order_result[len(order_result)-1]["date"],
+									"time":order_result[len(order_result)-1]["time"],
+									"price":order_result[len(order_result)-1]["price"],
 									}
 			else:
 				response= {"data":None}
