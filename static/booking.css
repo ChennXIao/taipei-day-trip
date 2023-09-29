@@ -739,7 +739,11 @@ margin: auto;
     line-height: normal;
 }
 
+.main_title{
+    
+    width: calc(100% - 20px);
 
+}
 
 }
 
@@ -789,6 +793,7 @@ margin: auto;
         width: 100%;
         object-fit: cover;
         margin-bottom: 28px;
+        margin-right: 0;
     }
 
 }
