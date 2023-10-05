@@ -397,12 +397,14 @@ def api_orders():
 	token_id = JWT()
 	try:
 		if token_id:
+			print("f")
 			url = "https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime"
 			headers = {'x-api-key': pk}
 			front_redirect = request.json
 			front_redirect["partner_key"] = pk
 			random_id = generate_order_id()
 			# create order id and not yet pay
+			print("s")
 			pay_rec = {
 				"data": {
 				"number": random_id,
@@ -417,6 +419,7 @@ def api_orders():
 			tappay_data = front_redirect
 			price = front_redirect["order"]["price"]
 			stripped_price = ''.join(filter(lambda i: i.isdigit(), price))
+			print("t")
 
 			tappay_data["amount"] = stripped_price
 			tappay_data["order"].pop("price")
