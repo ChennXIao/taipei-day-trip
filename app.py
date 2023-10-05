@@ -439,17 +439,19 @@ def api_orders():
 			else:
 				pay_rec["data"]["payment"]["status"] = 1
 				pay_rec["data"]["payment"]["message"] = "付款失敗"
-
+			print("h")
 			# add order info in db
 			api_orders_data = (token_id,front_redirect["order"]["trip"]["attraction"]["id"],random_id,pay_rec["data"]["payment"]["status"],tappay_data["cardholder"]["phone_number"])
 			api_orders = ("INSERT INTO pay(member_id,order_id,number,status,phone)VALUES(%s,%s,%s,%s,%s);")
 			cur.execute(api_orders,api_orders_data)
 			cnt.commit()
+			print(pay_rec)
 
 			response = Response(
 				response=json.dumps(pay_rec, ensure_ascii=False, indent=2),
 				mimetype="application/json",status=200
 					)
+			print(response)
 		else:
 			response= {"error":True,"message":"未登入系統，拒絕存取"}
 			response = Response(
