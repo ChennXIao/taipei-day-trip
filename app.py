@@ -395,16 +395,15 @@ def api_orders():
 	cnt = mysql.connector.connect(**db_config)
 	cur = cnt.cursor(dictionary=True,buffered=True)
 	token_id = JWT()
+	print(pk)
 	try:
 		if token_id:
-			print("f")
 			url = "https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime"
 			headers = {'x-api-key': pk}
 			front_redirect = request.json
 			front_redirect["partner_key"] = pk
 			random_id = generate_order_id()
 			# create order id and not yet pay
-			print("s")
 			pay_rec = {
 				"data": {
 				"number": random_id,
@@ -419,7 +418,6 @@ def api_orders():
 			tappay_data = front_redirect
 			price = front_redirect["order"]["price"]
 			stripped_price = ''.join(filter(lambda i: i.isdigit(), price))
-			print("t")
 
 			tappay_data["amount"] = stripped_price
 			tappay_data["order"].pop("price")
@@ -428,10 +426,10 @@ def api_orders():
 
 			tappay_data["merchant_id"] = "Cching_ESUN"
 			tappay_data["details"] = "TapPay Test"
-			print(tappay_data)
 			# call tappay API
 			tappay_response = requests.post(url, json=tappay_data,headers=headers)
 			tappay_response = tappay_response.json()
+			print(tappay_response)
 
 			if tappay_response["status"]==0:
 				pay_rec["data"]["payment"]["status"] = tappay_response["status"]
