@@ -796,15 +796,13 @@ margin: auto;
         object-fit: cover;
         margin-bottom: 28px;
         margin-right: 0;
+        margin-right: 0;
     }
 
 }
 
 
-
-
-
-.btnn{
+.main_credit_form{
     position: relative;
 }
 

@@ -1,7 +1,8 @@
+let ID = parseInt(window.location.href.slice(35))
+
 import * as loginExports from "/static/login.js"
 
-let ID = parseInt(window.location.href.slice(33))
-console.log(ID)
+
 let img_page_display;
 let profile_img = document.getElementsByClassName("content_img")[0]
 let profile_header = document.getElementsByClassName("content_profile-head")[0]
@@ -149,7 +150,13 @@ order_btn.addEventListener("click",()=>{
           "time": time_,
           "price": pay_})
       })
-    .then(response => response.json())
+        
+    .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
+  })
     .then(result => {
       console.log(result)
   

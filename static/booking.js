@@ -161,7 +161,7 @@ TPDirect.card.setup({
 })
 
 let prime;
-let foam = document.querySelector(".btnn")
+let foam = document.querySelector(".main_credit_form")
 let info_image_src = info_image.getAttribute("src");
 
 
