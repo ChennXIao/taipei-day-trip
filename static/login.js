@@ -117,7 +117,7 @@ export function loginBoxController(clickedItem, FadeOutItem=null,FadeInItem=null
 
 
 order_state.addEventListener("click",()=>{
-  if(member_id){
+  if(token){
     window.location.href = "/booking";
   }else{
     loginBoxController(order_state, null,signin_form_box,"block")
@@ -164,8 +164,6 @@ async function login_check() {
     
     return false;
   }else{
-
-  console.log('Token:', token);
   signin_state.textContent = "登出系統";
   
   try {
@@ -188,7 +186,5 @@ async function login_check() {
 
 
 let member_id = await login_check();
-console.log(member_id)
-
 
 export { login_check,signin_state,signin_form_box,member_id };

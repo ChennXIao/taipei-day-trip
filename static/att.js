@@ -144,7 +144,6 @@ order_btn.addEventListener("click",()=>{
           'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({ 
-          "id":loginExports.member_id,
           "attractionId": ID ,
           "date": day.value,
           "time": time_,
