@@ -395,56 +395,78 @@ def api_orders():
 	cnt = mysql.connector.connect(**db_config)
 	cur = cnt.cursor(dictionary=True,buffered=True)
 	token_id = JWT()
+	try:
+		if token_id:
+			url = "https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime"
+			headers = {'x-api-key': pk}
+			front_redirect = request.json
+			front_redirect["partner_key"] = pk
+			random_id = generate_order_id()
+			# create order id and not yet pay
+			pay_rec = {
+				"data": {
+				"number": random_id,
+				"payment": {
+					"status": 1,
+					"message": "未付款",
+					}
+				}
+			}
 
-	url = "https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime"
-	headers = {'x-api-key': pk}
-	front_redirect = request.json
-	front_redirect["partner_key"] = pk
-	random_id = generate_order_id()
-	# create order id and not yet pay
-	pay_rec = {
-		"data": {
-    	"number": random_id,
-    	"payment": {
-      		"status": None
-    		}
-  		}
-	}
+			# data for tappay API
+			tappay_data = front_redirect
+			price = front_redirect["order"]["price"]
+			stripped_price = ''.join(filter(lambda i: i.isdigit(), price))
 
-	# data for tappay API
-	tappay_data = front_redirect
-	price = front_redirect["order"]["price"]
-	stripped_price = ''.join(filter(lambda i: i.isdigit(), price))
+			tappay_data["amount"] = stripped_price
+			tappay_data["order"].pop("price")
+			tappay_data["cardholder"] = tappay_data["order"].pop("contact")
+			tappay_data["cardholder"]["phone_number"] = tappay_data["cardholder"].pop("phone")
 
-	tappay_data["amount"] = stripped_price
-	tappay_data["order"].pop("price")
-	tappay_data["cardholder"] = tappay_data["order"].pop("contact")
-	tappay_data["cardholder"]["phone_number"] = tappay_data["cardholder"].pop("phone")
+			tappay_data["merchant_id"] = "Cching_ESUN"
+			tappay_data["details"] = "TapPay Test"
+			print(tappay_data)
+			# call tappay API
+			tappay_response = requests.post(url, json=tappay_data,headers=headers)
+			tappay_response = tappay_response.json()
 
-	tappay_data["merchant_id"] = "Cching_ESUN"
-	tappay_data["details"] = "TapPay Test"
+			if tappay_response["status"]==0:
+				pay_rec["data"]["payment"]["status"] = tappay_response["status"]
+				pay_rec["data"]["payment"]["message"] = "付款成功"
+			else:
+				pay_rec["data"]["payment"]["status"] = 1
+				pay_rec["data"]["payment"]["message"] = "付款失敗"
 
-	# call tappay API
-	tappay_response = requests.post(url, json=tappay_data,headers=headers)
-	tappay_response = tappay_response.json()
+			# add order info in db
+			api_orders_data = (token_id,front_redirect["order"]["trip"]["attraction"]["id"],random_id,pay_rec["data"]["payment"]["status"],tappay_data["cardholder"]["phone_number"])
+			api_orders = ("INSERT INTO pay(member_id,order_id,number,status,phone)VALUES(%s,%s,%s,%s,%s);")
+			cur.execute(api_orders,api_orders_data)
+			cnt.commit()
 
-	if tappay_response["status"]==0:
-		pay_rec["data"]["payment"]["status"] = tappay_response["status"]
-		pay_rec["data"]["payment"]["message"] = "付款成功"
-	else:
-		pay_rec["data"]["payment"]["status"] = tappay_response["status"]
-		pay_rec["data"]["payment"]["message"] = tappay_response["msg"]
-
-	api_orders_data = (token_id,front_redirect["order"]["trip"]["attraction"]["id"],random_id,pay_rec["data"]["payment"]["status"],tappay_data["cardholder"]["phone_number"])
-	api_orders = ("INSERT INTO pay(member_id,order_id,number,status,phone)VALUES(%s,%s,%s,%s,%s);")
-	cur.execute(api_orders,api_orders_data)
-	cnt.commit()
-
-	pay_rec = Response(
-		response=json.dumps(pay_rec, ensure_ascii=False, indent=2),
-		mimetype="application/json",status=200
+			response = Response(
+				response=json.dumps(pay_rec, ensure_ascii=False, indent=2),
+				mimetype="application/json",status=200
+					)
+		else:
+			response= {"error":True,"message":"未登入系統，拒絕存取"}
+			response = Response(
+					response=json.dumps(response, ensure_ascii=False, indent=2),
+					mimetype="application/json",status=403
 			)
-	return pay_rec
+	except jwt.exceptions.ExpiredSignatureError:
+		response= {"error":True,"message":"建立失敗，輸入不正確或其他原因"}
+		response = Response(
+			response=json.dumps(response, ensure_ascii=False, indent=2),
+			mimetype="application/json",status=400
+				)
+	except:
+		response= {"error":True,"message":"伺服器內部錯誤"}
+		response = Response(
+			response=json.dumps(response, ensure_ascii=False, indent=2),
+			mimetype="application/json",status=500
+				)
+	
+	return response
 
 @app.route("/api/order/<orderNumber>",methods=["GET"])
 def api_order_(orderNumber):
@@ -453,51 +475,60 @@ def api_order_(orderNumber):
 	cur2 = cnt.cursor(dictionary=True,buffered=True)
 	cur3 = cnt.cursor(dictionary=True,buffered=True)
 	token_id = JWT()
+	if token_id:
+		api_order_query = ("select * from `order` inner join pay on `order`.order_id=pay.order_id and `order`.member_id = pay.member_id where number = %s")
+		cur.execute(api_order_query,(orderNumber,))
+		orders_query_result = cur.fetchall()
+		orders_query_result= orders_query_result[0]
+		cur.close()
+		if orders_query_result:
+			get_attration = "SELECT * FROM attraction WHERE id = %s;"
+			cur2.execute(get_attration,(orders_query_result["order_id"],))
+			attraction_result = cur2.fetchall()
+			attraction_result[0]["images"] = attraction_result[0]["images"].split(',')	
+			attraction_result = attraction_result[0]
 
-	api_order_query = ("select * from `order` inner join pay on `order`.order_id=pay.order_id where number = %s")
-	cur.execute(api_order_query,(orderNumber,))
-	orders_query_result = cur.fetchall()
-	orders_query_result= orders_query_result[0]
-	cur.close()
-	if orders_query_result:
-		get_attration = "SELECT * FROM attraction WHERE id = %s;"
-		cur2.execute(get_attration,(orders_query_result["order_id"],))
-		attraction_result = cur2.fetchall()
-		attraction_result[0]["images"] = attraction_result[0]["images"].split(',')	
-		attraction_result = attraction_result[0]
+			member_info = "SELECT * FROM member WHERE id = %s;"
+			cur3.execute(member_info,(token_id,))
+			member_info_result = cur3.fetchall()
+			member_info_result = member_info_result[0] 
 
-		member_info = "SELECT * FROM member WHERE id = %s;"
-		cur3.execute(member_info,(token_id,))
-		member_info_result = cur3.fetchall()
-		member_info_result = member_info_result[0] 
-
-		response = {
-			"data": {
-				"number": orders_query_result["number"],
-				"price": orders_query_result["price"],
-				"trip": {
-				"attraction": {
-					"id": orders_query_result["order_id"],
-					"name": attraction_result["name"],
-					"address": attraction_result["address"],
-					"image": attraction_result["images"][0],
-				},
-				"date": orders_query_result["date"],
-				"time": orders_query_result["time"]
-				},
-				"contact": {
-				"name": member_info_result["name"],
-				"email": member_info_result["email"],
-				"phone": orders_query_result["phone"]
-				},
-				"status": orders_query_result["status"]
+			response = {
+				"data": {
+					"number": orders_query_result["number"],
+					"price": orders_query_result["price"],
+					"trip": {
+					"attraction": {
+						"id": orders_query_result["order_id"],
+						"name": attraction_result["name"],
+						"address": attraction_result["address"],
+						"image": attraction_result["images"][0],
+					},
+					"date": orders_query_result["date"],
+					"time": orders_query_result["time"]
+					},
+					"contact": {
+					"name": member_info_result["name"],
+					"email": member_info_result["email"],
+					"phone": orders_query_result["phone"]
+					},
+					"status": orders_query_result["status"]
+				}
 			}
-		}
 
-	response = Response(
-		response=json.dumps(response, ensure_ascii=False, indent=2),
-		mimetype="application/json",status=200
+			response = Response(
+			response=json.dumps(response, ensure_ascii=False, indent=2),
+			mimetype="application/json",status=200
+				)
+		else:
+			response = {"data": None}
+	else:
+		response= {"error":True,"message":"未登入系統，拒絕存取"}
+		response = Response(
+			response=json.dumps(response, ensure_ascii=False, indent=2),
+				mimetype="application/json",status=403
 			)
+
 	return response
 
 

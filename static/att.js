@@ -1,4 +1,4 @@
-let ID = parseInt(window.location.href.slice(35))
+let ID = parseInt(window.location.href.slice(33))
 
 import * as loginExports from "/static/login.js"
 

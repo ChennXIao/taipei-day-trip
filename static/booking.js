@@ -50,7 +50,6 @@ let signin_state = document.querySelector(".navbar-btn_signin")
 
 //detect if the web store the token right now or not
 if (token) {
-  console.log('Token:', token);
   signin_state.textContent = "登出系統"
   fetch("/api/user/auth", {
     method: 'GET',
@@ -198,7 +197,7 @@ foam.addEventListener("submit", (event) => {
       setTimeout(order_api_fetch,500)
       setTimeout(()=>{
         window.location.href = "/thankyou"+"?number="+order_num
-      },2000)
+      },3000)
     }
 })
   }
