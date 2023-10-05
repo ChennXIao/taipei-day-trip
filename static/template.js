@@ -6,7 +6,6 @@ let isScrolling = false;
 let data;
 let click;
 let clicking;
-
 document.addEventListener('DOMContentLoaded', function() {
   fetch_data();
   get_input();
@@ -26,6 +25,7 @@ function getAttractionContainer() {
 function getBlankElements() {
   return document.getElementsByClassName("input");
 }
+
 
 function get_clicked(){
 let BLOCK = getAttractionContainer();
@@ -86,7 +86,6 @@ function fetch_data(){
             let img = document.createElement('img');
             img.className = "pic";
             img.setAttribute('src', data[i].images[0]);
-            img.setAttribute('id', data[i].id);
             img.setAttribute('id', data[i].id);
             lastChild.appendChild(img);
 

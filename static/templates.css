@@ -62,10 +62,8 @@ margin: auto;
     font-style: normal;
     font-weight: 500;
     line-height: 13.3px; /* 83.125% */
-
- 
-    
     padding: 10px;
+    cursor: pointer;
 }
 
 .navbar-btn_signin{

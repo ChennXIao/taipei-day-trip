@@ -1,6 +1,8 @@
-let ID = parseInt(window.location.href.slice(36))
-let a = "http://3.105.22.12:3000/attraction/23"
-console.log(a.slice(35))
+let ID = parseInt(window.location.href.slice(35))
+
+import * as loginExports from "/static/login.js"
+
+
 let img_page_display;
 let profile_img = document.getElementsByClassName("content_img")[0]
 let profile_header = document.getElementsByClassName("content_profile-head")[0]
@@ -101,8 +103,87 @@ function att(){
   
     })
     
-
     }
 
+
+let token = localStorage.getItem('token');
+console.log(loginExports.member_id)
+
+
+// deal with order 
+
+let order_btn = document.querySelector(".content_profile-booking_btn")
+order_btn.addEventListener("click",()=>{
+  if(!loginExports.member_id){
+    
+    loginExports.loginBoxController(order_btn, null,loginExports.signin_form_box,"block")
+
+
+}else{
+  console.log(day.value,time_)
+  if(!day.value && !time_){
+
+    day_hint.style.display = "block"
+    date_hint.style.display = "block"
+  }else if(!day.value){
+    day_hint.style.display = "none"
+    date_hint.style.display = "block"
+
+  }else if(!time_){
+    day_hint.style.display = "block"
+    date_hint.style.display = "none"
+
+  }else{
+    window.location.href= "/booking"
+    console.log(day.value,pay_,typeof(time_));
+    pay_ = pay.textContent
+    let url = "/api/booking"
+    fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ 
+          "id":loginExports.member_id,
+          "attractionId": ID ,
+          "date": day.value,
+          "time": time_,
+          "price": pay_})
+      })
+        
+    .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
+  })
+    .then(result => {
+      console.log(result)
+  
+    })
+  }}
+})
+
+let date_hint = document.querySelector(".content_profile-booking_day-hint")
+let day_hint = document.querySelector(".content_profile-booking_choice-hint")
+
+//date
+let day = document.querySelector(".content_profile-booking_day__blank")
+day.addEventListener("change",()=>{
+  console.log(day.value)
+})
+
+//time
+let time = document.querySelectorAll(".circle")
+let time_;
+let pay_; 
+time.forEach((element) => {
+  element.addEventListener("click", () => {
+    time_ = element.nextSibling.textContent
+    console.log(element.nextSibling.textContent);
+    
+  });
+});
 
 
