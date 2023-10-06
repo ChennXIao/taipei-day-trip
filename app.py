@@ -278,7 +278,6 @@ def api_booking():
 			date = request.json.get('date').replace(" ","")
 			time = request.json.get('time').replace(" ","")
 			price = request.json.get('price').replace(" ","")
-
 			order_data = (token_id,orderId,date,time,price)
 
 			api_orderId = "insert into `order`(member_id,order_id,date,time,price)value(%s,%s,%s,%s,%s);"
