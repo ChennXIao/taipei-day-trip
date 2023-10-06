@@ -395,7 +395,6 @@ def api_orders():
 	cnt = mysql.connector.connect(**db_config)
 	cur = cnt.cursor(dictionary=True,buffered=True)
 	token_id = JWT()
-	print(pk)
 	try:
 		if token_id:
 			url = "https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime"
@@ -429,7 +428,6 @@ def api_orders():
 			# call tappay API
 			tappay_response = requests.post(url, json=tappay_data,headers=headers)
 			tappay_response = tappay_response.json()
-			print(tappay_response)
 
 			if tappay_response["status"]==0:
 				pay_rec["data"]["payment"]["status"] = tappay_response["status"]
@@ -437,19 +435,20 @@ def api_orders():
 			else:
 				pay_rec["data"]["payment"]["status"] = 1
 				pay_rec["data"]["payment"]["message"] = "付款失敗"
-			print("h")
+	
 			# add order info in db
 			api_orders_data = (token_id,front_redirect["order"]["trip"]["attraction"]["id"],random_id,pay_rec["data"]["payment"]["status"],tappay_data["cardholder"]["phone_number"])
 			api_orders = ("INSERT INTO pay(member_id,order_id,number,status,phone)VALUES(%s,%s,%s,%s,%s);")
 			cur.execute(api_orders,api_orders_data)
+
+			order_del = "DELETE FROM `order` WHERE member_id=%s;"
+			cur.execute(order_del,(token_id,))
 			cnt.commit()
-			print(pay_rec)
 
 			response = Response(
 				response=json.dumps(pay_rec, ensure_ascii=False, indent=2),
 				mimetype="application/json",status=200
 					)
-			print(response)
 		else:
 			response= {"error":True,"message":"未登入系統，拒絕存取"}
 			response = Response(
