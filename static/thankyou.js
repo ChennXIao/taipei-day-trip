@@ -1,17 +1,9 @@
-const order_id = localStorage.getItem('order_id');
-console.log(order_id);
 let orderId = document.querySelector(".thank_order_id")
-orderId.textContent = order_id
-
-
-let title = document.getElementsByClassName("navbar-title")[0]
-title.addEventListener("click",()=>{
-  window.location.href= "/"
-})
-
-let url = "/api/order/"+ order_id
-
+let query_string = window.location.search
+let extracted_num = query_string.slice(query_string.indexOf('=') + 1);
+let url = "/api/order/"+ extracted_num
 let token = localStorage.getItem('token');
+orderId.textContent = extracted_num;
 
 fetch(url, {
     method: 'GET',
@@ -48,4 +40,9 @@ if (token) {
   } else {
     window.location.href = "/";
   }
+
+let title = document.getElementsByClassName("navbar-title")[0]
+title.addEventListener("click",()=>{
+  window.location.href= "/"
+})
   
