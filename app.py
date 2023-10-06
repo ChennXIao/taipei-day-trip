@@ -425,6 +425,7 @@ def api_orders():
 
 			tappay_data["merchant_id"] = "Cching_ESUN"
 			tappay_data["details"] = "TapPay Test"
+			print(tappay_data)
 			# call tappay API
 			tappay_response = requests.post(url, json=tappay_data,headers=headers)
 			tappay_response = tappay_response.json()
@@ -435,7 +436,7 @@ def api_orders():
 			else:
 				pay_rec["data"]["payment"]["status"] = 1
 				pay_rec["data"]["payment"]["message"] = "付款失敗"
-	
+
 			# add order info in db
 			api_orders_data = (token_id,front_redirect["order"]["trip"]["attraction"]["id"],random_id,pay_rec["data"]["payment"]["status"],tappay_data["cardholder"]["phone_number"])
 			api_orders = ("INSERT INTO pay(member_id,order_id,number,status,phone)VALUES(%s,%s,%s,%s,%s);")
