@@ -121,7 +121,7 @@ margin: auto;
     font-family: var(--font-family-700_19);
     font-size: var(--font-size-700_19);
     font-weight: var(--font-weight-700_19);
-    line-height: var(--line-height-700_19);
+    /* line-height: var(--line-height-700_19); */
     box-sizing: border-box;
 }
 
@@ -299,7 +299,7 @@ margin: auto;
 
 .main_credit{
     width: 980px;
-    height: 188px;
+    /* height: 188px; */
     flex-shrink: 0;
     margin: auto;
 
@@ -335,9 +335,9 @@ margin: auto;
 .main_user_name_box,
 .main_user_email_box,
 .main_user_phone_box,
-.main_credit_num_box,
-.main_credit_expired_box,
-.main_credit_code_box{
+#card-number,
+#card-expiration-date,
+#card-ccv{
     display: flex;
     width: 180px;
     height: 38px;
@@ -404,7 +404,7 @@ margin: auto;
 
 
 .main_payment_btn{
-    display: flex;
+    /* display: flex; */
     width: 173px;
     margin-right:0;
     box-sizing: border-box;
@@ -415,8 +415,10 @@ margin: auto;
     color: var(--additional-color-white, #FFF);
     text-align: center;
     position: absolute;
+    bottom: -158px;
     right: 0;
-    top: 36px;
+    border: 0;
+    z-index: 2;
 
     /* Button - Reg 19(16) */
     font-family: Noto Sans TC;
@@ -794,6 +796,42 @@ margin: auto;
         object-fit: cover;
         margin-bottom: 28px;
         margin-right: 0;
+        margin-right: 0;
     }
+
+}
+
+
+.main_credit_form{
+    position: relative;
+}
+
+.thank_order{
+    height: 300px;
+    width: 100%;
+    margin: auto;
+    margin-top: 93px;
+    margin-bottom: 40px;
+    text-align: center;
+    color: var(--secondary-color-gray-70, #666);
+    font-family: var(--font-family-500);
+    font-size: var(--font-size-500);
+    font-weight: var(--font-weight-500);
+    /* line-height: var(--line-height-500); */
+}
+
+
+.main_credit-hint,
+.main_user_phone-hint
+{
+    /* padding: 5px 0; */
+    box-sizing: border-box;
+    color: red;
+    font-family: var(--font-family-700_16);
+    font-size: var(--font-size-700_16);
+    font-weight: var(--font-weight-700_16);
+    line-height: var(--line-height-700_16);
+    display: none;
+
 
 }

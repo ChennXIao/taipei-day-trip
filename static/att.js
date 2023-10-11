@@ -1,4 +1,4 @@
-let ID = parseInt(window.location.href.slice(35))
+let ID = parseInt(window.location.href.slice(33))
 
 import * as loginExports from "/static/login.js"
 
@@ -145,7 +145,6 @@ order_btn.addEventListener("click",()=>{
           'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({ 
-          "id":loginExports.member_id,
           "attractionId": ID ,
           "date": day.value,
           "time": time_,

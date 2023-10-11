@@ -102,7 +102,7 @@ export function loginBoxController(clickedItem, FadeOutItem=null,FadeInItem=null
   clickedItem.addEventListener("click",()=>{
     if (token) {
       localStorage.removeItem("token");
-      window.location.href = window.location.href; 
+      window.location.href ="/"; 
     }else{
       if (FadeOutItem) {
         FadeOutItem.style.top="-500px"
@@ -117,7 +117,7 @@ export function loginBoxController(clickedItem, FadeOutItem=null,FadeInItem=null
 
 
 order_state.addEventListener("click",()=>{
-  if(member_id){
+  if(token){
     window.location.href = "/booking";
   }else{
     loginBoxController(order_state, null,signin_form_box,"block")
@@ -125,47 +125,15 @@ order_state.addEventListener("click",()=>{
 })
 // let member_id
 //detect if the web store the token right now or not
-// function login_check(){
-//   let token = localStorage.getItem('token');
-//   let signin_state = document.querySelector(".navbar-btn_signin")
-//   if (token) {
-//       console.log('Token:', token);
-//       signin_state.textContent = "登出系統"
-//       fetch("/api/user/auth", {
-//         method: 'GET',
-//         headers: {
-//           'Authorization': `Bearer ${token}` 
-//         }
-//       }) .then(response => response.json())
-//       .then(result => {
-//         member_id = result.data.email
-        
-
-//         // if(result.error){
-//         // console.log(result.error)
-//         // localStorage.removeItem("token");
-//         // window.location.href = "/";
-//         // };
-        
-//       })
-//       return true;
-//     } else {
-//       return false;
-//     }
-// }
-
 
 
 async function login_check() {
   let token = localStorage.getItem('token');
-  let signin_state = document.querySelector(".navbar-btn_signin");
 
   if (!token) {
     
     return false;
   }else{
-
-  console.log('Token:', token);
   signin_state.textContent = "登出系統";
   
   try {
@@ -188,7 +156,5 @@ async function login_check() {
 
 
 let member_id = await login_check();
-console.log(member_id)
-
 
 export { login_check,signin_state,signin_form_box,member_id };
