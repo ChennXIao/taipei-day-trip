@@ -1,16 +1,23 @@
 import json, urllib.request,csv
 import re
 import mysql.connector
+from dotenv import load_dotenv
+import os
 
-cnt = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  password="sharon616",
-  database="taipei"
-)
+load_dotenv()
+
+dbHost = os.getenv("DB_HOST")
+dbUser = os.getenv("DB_USER")
+dbPassword = os.getenv("DB_PASSWORD")
+
+db_config = {
+    "host": dbHost,
+    "user": dbUser,
+    "password": dbPassword,
+    "database": 'taipei'
+}
+cnt = mysql.connector.connect(**db_config)
 cur = cnt.cursor(dictionary=True,buffered=True)
-
-
 
 # cur.execute("SELECT *  FROM Attractions")
 # json to csv
