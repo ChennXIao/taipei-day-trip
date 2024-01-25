@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link href="templates.css" rel="stylesheet"> -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='templates.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/templates.css') }}">
 
-    <title>Document</title>
+    <title>Taipei Day Trip</title>
 </head>
 <body>
     <div class="mask"></div>
@@ -37,7 +36,7 @@
                     <!-- <div class="main-title_search__send"> -->
                     
                         <button type="submit" class="svg-container">
-                            <img src="{{ url_for('static', filename='search.png') }}" class="search_img">
+                            <img src="{{ url_for('static', filename='/img/search.png') }}" class="search_img">
                         </button>
                     <!-- </div> -->
                 </form>
@@ -50,7 +49,7 @@
         <div class="listbar">
             <div class="left-container">
                 <div class="arrow_left">
-                    <img src="{{ url_for('static', filename='arrow left.png') }}">
+                    <img src="{{ url_for('static', filename='/img/arrow left.png') }}">
                 </div>
             </div>
             <div class="container">
@@ -59,12 +58,11 @@
                 </div>
             </div>
             <div class="right-container">
-                <img src="{{ url_for('static', filename='arrow right.png') }}" class="arrow_right">
+                <img src="{{ url_for('static', filename='/img/arrow right.png') }}" class="arrow_right">
             </div>
         </div>
         
         <div class="attraction-container">
-
     </div>
     <div class="nodata"><span class="nodata_text"></span></div>
     <div class="nodata"><span class="nodata_text"></span></div>
@@ -78,7 +76,7 @@
     <div class="signin_form_box_header"></div>
         <form method="post" class="signup_form">
             <h3 class="signup_form_title">註冊會員帳號</h3>
-            <img src="{{ url_for('static', filename='icon_close.png') }}" class="signup_form_closing">
+            <img src="{{ url_for('static', filename='/img/icon_close.png') }}" class="signup_form_closing">
             <input type="text" name="name" class="name" placeholder="輸入姓名"/>
             <br>
             <input type="text" name="email" class="email" placeholder="輸入電子郵件"/>
@@ -93,7 +91,7 @@
     <div class="signin_form_box_header"></div>
         <form method="post" class="signin_form">
             <h3 class="signin_form_title">登入會員帳號</h3>
-            <img src="{{ url_for('static', filename='icon_close.png') }}" class="signin_form_closing">
+            <img src="{{ url_for('static', filename='/img/icon_close.png') }}" class="signin_form_closing">
             <input type="text" name="email" class="email" placeholder="輸入電子郵件"/>
             <br>
             <input type="password" name="password" class="password" placeholder="輸入密碼"/>
@@ -106,6 +104,6 @@
     </div>
 
 </body>
-<script type="module" src="{{ url_for('static', filename='template.js') }}"></script>
-<script type="module" src="{{ url_for('static', filename='login.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='/js/template.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='/js/login.js') }}"></script>
 </html>

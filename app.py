@@ -5,23 +5,30 @@ from mysql.connector import pooling
 import jwt 
 from datetime import datetime,timedelta
 import uuid
-from env import secret 
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+dbHost = os.getenv("DB_HOST")
+dbUser = os.getenv("DB_USER")
+dbPassword = os.getenv("DB_PASSWORD")
 
 db_config = {
-    "host": "localhost",
-    "user": "root",
-    "password": "sharon616",
-    "database": "taipei"
+    "host": dbHost,
+    "user": dbUser,
+    "password": dbPassword,
+    "database": 'taipei'
 }
 key = "secret"
+api_key = os.getenv("API_KEY")
 cnt = mysql.connector.connect(**db_config)
 cur = cnt.cursor(dictionary=True,buffered=True)
-
-app=Flask(__name__)
+	
+app = Flask(__name__)
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
 app.config['JSONIFY_MIMETYPE'] = "application/json;charset=utf-8"
-
 
 def JWT():
 	auth_header = request.headers.get('Authorization')
@@ -387,7 +394,6 @@ def api_booking():
 			)
 		return response
 
-pk = secret.get('pk')
 
 @app.route("/api/orders",methods=["POST"])
 def api_orders():
@@ -397,9 +403,9 @@ def api_orders():
 	try:
 		if token_id:
 			url = "https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime"
-			headers = {'x-api-key': pk}
+			headers = {'x-api-key': api_key}
 			front_redirect = request.json
-			front_redirect["partner_key"] = pk
+			front_redirect["partner_key"] = api_key
 			random_id = generate_order_id()
 			# create order id and not yet pay
 			pay_rec = {
@@ -481,9 +487,9 @@ def api_order_(orderNumber):
 		api_order_query = ("select * from `order` inner join pay on `order`.order_id=pay.order_id and `order`.member_id = pay.member_id where number = %s")
 		cur.execute(api_order_query,(orderNumber,))
 		orders_query_result = cur.fetchall()
-		orders_query_result= orders_query_result[0]
 		cur.close()
 		if orders_query_result:
+			orders_query_result= orders_query_result[0]
 			get_attration = "SELECT * FROM attraction WHERE id = %s;"
 			cur2.execute(get_attration,(orders_query_result["order_id"],))
 			attraction_result = cur2.fetchall()
@@ -545,8 +551,6 @@ def thankyou():
 
 	return render_template("thankyou.html")
 
-
 if __name__ == "__main__":
- 
- app.run(host="0.0.0.0", port=3000,debug=True)
- app.run(debug=True)
+	app.run(host="0.0.0.0", port=3000,debug=True)
+	app.run(debug=True)

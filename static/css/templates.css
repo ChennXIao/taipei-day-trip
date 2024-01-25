@@ -45,7 +45,8 @@ margin: auto;
     font-style: normal;
     font-weight: 700;
     line-height: 34px; /* 113.333% */
-    
+    cursor: pointer;
+
 }
 .navbar-btn{
     justify-content: flex-end;
@@ -80,7 +81,7 @@ margin: auto;
 }
 .main-pic{
     height: 320px;
-    background-image: url(./welcome.png);
+    background-image: url(../img/welcome.png);
     background-repeat: no-repeat;
     background-size: cover;
     margin-top: 54px;
@@ -238,6 +239,7 @@ margin: auto;
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
     left: 400px;
+    cursor: pointer;
 
 }
 
@@ -311,10 +313,6 @@ margin: auto;
     justify-content: center;
     align-items: center;
 }
-
-
-
-
 
 .footer{
     display: flex;

@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
   fetch_mrt();
   setTimeout(mrt, 1000); 
   mrt_scroll();
-  setTimeout(scroll, 300); 
+  // setTimeout(scroll, 300); 
   setTimeout(get_clicked, 300); 
   
 });
@@ -192,7 +192,6 @@ function mrt_scroll(){
 
 
 function scroll(){
-
   let pre_scrollPosition = window.scrollY;
 
   window.addEventListener("load", function () {
@@ -203,8 +202,6 @@ function scroll(){
     let windowHeight = window.innerHeight;
     let documentHeight = document.documentElement.scrollHeight;
     let scrollPosition = window.scrollY;
-    console.log(isScrolling)
-
     if (!isScrolling&&scrollPosition + windowHeight >= documentHeight && scrollPosition - pre_scrollPosition>=0) {
 
       isScrolling = true  
@@ -215,7 +212,7 @@ function scroll(){
           api = "/api/attractions"+"?page="+nextPage+ "&"+"keyword="
         }
         clearTimeout(time)
-        time = setTimeout(function(){fetch_data();},250)
+        time = setTimeout(function(){fetch_data();},50)
         
       }
     }
@@ -223,3 +220,22 @@ function scroll(){
 
 }
 
+const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        console.log('Target element is now in view!');
+        if(nextPage&&!isScrolling){
+          isScrolling = true  
+            api = "/api/attractions"+"?page="+nextPage+ "&"+"keyword="
+          clearTimeout(time)
+          time = setTimeout(fetch_data,100)
+          
+        }
+            } else {
+              //
+      }
+    });
+  });
+
+const targetElement = document.querySelector('.footer');
+observer.observe(targetElement);

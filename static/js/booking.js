@@ -162,6 +162,7 @@ TPDirect.card.setup({
 let prime;
 let foam = document.querySelector(".main_credit_form")
 let info_image_src = info_image.getAttribute("src");
+let order_num; 
 
 
 foam.addEventListener("submit", (event) => {
@@ -187,62 +188,103 @@ foam.addEventListener("submit", (event) => {
     }else{
     console.log("get prime successfully!")
       // Get prime
-  TPDirect.card.getPrime((result) => {
+  TPDirect.card.getPrime(async(result) => {
     if (result.status !== 0) {
         console.log(result)
 
     }else{
       console.log(result.card.prime)
       prime = result.card.prime
-      setTimeout(order_api_fetch,500)
-      setTimeout(()=>{
-        window.location.href = "/thankyou"+"?number="+order_num
-      },3000)
+      // setTimeout(order_api_fetch,500)
+      order_api_fetch().then((order_num) => {
+        console.log(order_num);
+        window.location.href = "/thankyou" + "?number=" + order_num;
+    });
+        console.log(order_num)
     }
 })
   }
 })
 
 
-let order_num; 
+// async function order_api_fetch(){
+//   fetch("/api/orders",{
+//     method: 'POST',
+//     headers: {
+//       'Authorization': `Bearer ${token}`,
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify({
+//       "prime": prime,
+//       "order": {
+//         "price": fee_value.textContent,
+//         "trip": {
+//           "attraction": {
+//             "id": orderId,
+//             "name": attraction_name.textContent,
+//             "address": location_value.textContent,
+//             "image": info_image_src
+//           },
+//           "date": date_value.textContent,
+//           "time": time_value.textContent,
+//         },
+//         "contact": {
+//           "name": userInfo.name,
+//           "email": userInfo.email,
+//           "phone": user_phone.value
+//         }
+//       }
+//     })
 
-function order_api_fetch(){
-  fetch("/api/orders",{
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      "prime": prime,
-      "order": {
-        "price": fee_value.textContent,
-        "trip": {
-          "attraction": {
-            "id": orderId,
-            "name": attraction_name.textContent,
-            "address": location_value.textContent,
-            "image": info_image_src
+//   })  
+//   .then(response => response.json())
+//   .then(result => {
+//       order_num = result.data.number
+//       console.log(order_num)
+//       localStorage.setItem('order_id', order_num);
+//       return order_num
+
+//  })
+// }
+
+
+async function order_api_fetch() {
+  try {
+      const response = await fetch("/api/orders", {
+          method: 'POST',
+          headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
           },
-          "date": date_value.textContent,
-          "time": time_value.textContent,
-        },
-        "contact": {
-          "name": userInfo.name,
-          "email": userInfo.email,
-          "phone": user_phone.value
-        }
-      }
-    })
+          body: JSON.stringify({
+            "prime": prime,
+            "order": {
+              "price": fee_value.textContent,
+              "trip": {
+                "attraction": {
+                  "id": orderId,
+                  "name": attraction_name.textContent,
+                  "address": location_value.textContent,
+                  "image": info_image_src
+                },
+                "date": date_value.textContent,
+                "time": time_value.textContent,
+              },
+              "contact": {
+                "name": userInfo.name,
+                "email": userInfo.email,
+                "phone": user_phone.value
+              }
+            }
+          })
+      });
 
-  })  
-  .then(response => response.json())
-  .then(result => {
-      order_num = result.data.number
-      console.log(order_num)
-      localStorage.setItem('order_id', order_num);
+      let result = await response.json();
+      let order_num = result.data.number;
 
- })
+      return order_num;
+  } catch (error) {
+      console.error(error);
+      throw error; // Re-throw the error for further handling if needed
+  }
 }
-
-
