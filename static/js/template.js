@@ -8,12 +8,12 @@ let click;
 let clicking;
 const targetElement = document.querySelector(".footer");
 
-document.addEventListener("DOMContentLoaded", function () {
-  fetch_data();
+document.addEventListener("DOMContentLoaded", async function () {
+  await fetch_data();
   get_input();
   fetch_mrt();
   mrt_scroll();
-  setTimeout(mrt, 3000);
+  setTimeout(mrt, 5000);
 });
 
 function getAttractionContainer() {
@@ -28,18 +28,6 @@ function getBlockElements() {
   return document.getElementsByClassName("block");
 }
 
-// function get_clicked() {
-//   let BLOCK = getBlockElements();
-//   for (let i = 0; i < BLOCK.length; i++) {
-//     BLOCK[i].style.cursor = "pointer";
-//     BLOCK[i].addEventListener("click", function (e) {
-//       clicking = e.target.id;
-//       console.log(clicking);
-//       let url = "/attraction/" + clicking;
-//       window.location.href = url;
-//     });
-//   }
-// }
 
 function get_input() {
   let query = document.getElementsByClassName("form");
