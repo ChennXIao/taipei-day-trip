@@ -321,6 +321,12 @@
     align-items: flex-start;
 }
 
+
+.right-container:hover,.left-container:hover{
+    opacity: 0.3;
+    transition: 0.3s;
+
+}
 .arrow_right {
     display: flex;
     width: 32px;

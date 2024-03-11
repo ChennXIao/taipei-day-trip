@@ -16,16 +16,16 @@ http://13.55.202.83:3000/
 ## Features
 
 1. **Tourist Spot Selection:**
-  Users can easily browse and select tourist spots based on Taipei's Mass Rapid Transit (MRT) lines.
+   - Users can easily browse and select tourist spots based on Taipei's Mass Rapid Transit (MRT) lines.
 
 2. **Key Word Search**: 
    - Implemented a search functionality using SQL queries, allowing users to search for specific places. This enhances the user experience by providing quick access to relevant information.   - 
 
 3. **Responsive Web Design**:
-  - Implement **Responsive Web Design** for vary devices to enhance the user experience.
+   - Implement **Responsive Web Design** for vary devices to enhance the user experience.
 
 4. **Third-party API**:
-  - Integrated **third-party APIs**, Tappay, to implement online payment
+   - Integrated **third-party APIs**, Tappay, to implement online payment
 systems for transaction processing.
 
 ## Techniques
